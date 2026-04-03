@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Somnath Sen | Full Stack Developer</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="shortcut icon" href="./assets/images/somnathsen.jpg" type="image/x-icon">
+</head>
+
+<body data-theme="dark">
+
+  <!-- Colorful Animated Orbs Background -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Noise Overlay for Texture -->
+  <div class="noise-overlay"></div>
+
+  <!-- Navbar -->
+  <nav class="glass-nav">
+    <div class="logo">
+      <span class="logo-icon"><ion-icon name="code-slash"></ion-icon></span>
+      <span class="logo-text">Somnath Sen.</span>
+    </div>
+    <div class="nav-links">
+      <a href="#hero">Home</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Work</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="theme-btn" data-theme-btn aria-label="Toggle theme">
+      <ion-icon name="moon-outline" class="moon"></ion-icon>
+      <ion-icon name="sun-outline" class="sun"></ion-icon>
+    </button>
+  </nav>
+
+  <main class="container">
+
+    <!-- HERO AREA -->
+    <section id="hero" class="hero-section">
+      <div class="section-header">
+        <div class="badge-guide">
+          <span></span> About Me
+        </div>
+        <h3>See My <span class="gradient-text">Process</span></h3>
+        <p>I am a full-stack engineer with a passion for building beautiful, high-performance web applications that convert and captivate.</p>
+      </div>
+      
+      <div class="hero-content reveal" data-tilt data-tilt-max="2" data-tilt-glare="true" data-tilt-max-glare="0.1">
+        <div class="glass-panel main-panel">
+          <div class="status-badge">
+            <span class="pulse-dot"></span> Available for Work
+          </div>
+          <h1 class="hero-title">
+            Building <br>
+            <span class="gradient-text type-text"></span><span class="cursor">|</span>
+          </h1>
+          <p class="hero-desc">I’m Somnath Sen, a Full-Stack Engineer and UI/UX Architect creating beautiful,
+            high-performance web applications that convert and captivate.</p>
+
+          <div class="hero-actions">
+            <a href="#contact" class="btn primary-btn">
+              <ion-icon name="rocket-outline"></ion-icon> Start a Project
+            </a>
+            <a href="https://github.com/somnath-sen" class="btn outline-btn">
+              <ion-icon name="logo-github"></ion-icon> View Github
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="glass-panel profile-panel" data-tilt data-tilt-scale="1.05">
+          <div class="profile-img-box">
+            <img src="./assets/images/somnathsen.jpg" alt="Somnath Sen">
+          </div>
+          <h3>Somnath Sen</h3>
+          <p class="role">Software Engineer</p>
+
+          <div class="badges-row">
+            <div class="floating-badge badge-1"><ion-icon name="logo-laravel"></ion-icon> Laravel</div>
+            <div class="floating-badge badge-2"><ion-icon name="logo-nodejs"></ion-icon> Node.js</div>
+            <div class="floating-badge badge-3"><ion-icon name="color-palette-outline"></ion-icon> UI/UX</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS ARSENAL -->
+    <section id="skills" class="skills-section reveal">
+      <div class="section-header">
+        <div class="badge-guide">
+          <span></span> Skills
+        </div>
+        <h3>Tech <span class="gradient-text">Arsenal</span></h3>
+        <p>Here's a showcase of my recent projects, demonstrating my skills in full-stack development and modern web technologies.</p>
+      </div>
+      <div class="glass-panel skills-panel">
+        <div class="skills-grid">
+
+          <!-- Skill Block -->
+          <div class="skill-category">
+            <h3>Frontend UI / UX</h3>
+            <div class="skill-list">
+              <div class="skill-tag"><ion-icon name="logo-html5"></ion-icon> HTML/CSS</div>
+              <div class="skill-tag"><ion-icon name="logo-javascript"></ion-icon> JavaScript / ES6</div>
+              <div class="skill-tag"><ion-icon name="logo-react"></ion-icon> React Native</div>
+              <div class="skill-tag"><ion-icon name="color-palette-outline"></ion-icon> Figma</div>
+            </div>
+          </div>
+
+          <!-- Skill Block -->
+          <div class="skill-category">
+            <h3>Backend & Architecture</h3>
+            <div class="skill-list">
+              <div class="skill-tag"><ion-icon name="logo-laravel"></ion-icon> PHP / Laravel</div>
+              <div class="skill-tag"><ion-icon name="logo-nodejs"></ion-icon> Node / Express</div>
+              <div class="skill-tag"><ion-icon name="server-outline"></ion-icon> MySQL / MongoDB</div>
+              <div class="skill-tag"><ion-icon name="cloud-outline"></ion-icon> API Integration</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="projects-section">
+      <div class="section-header">
+        <div class="badge-guide">
+          <span></span> Works
+        </div>
+        <h3>Featured <span class="gradient-text">Deployments</span></h3>
+        <p>Here's a showcase of my recent projects, demonstrating my skills in full-stack development and modern web technologies.</p>
+      </div>
+      <div class="projects-grid">
+
+        <div class="glass-panel project-card reveal" data-tilt data-tilt-glare="true" data-tilt-max-glare="0.4">
+          <div class="project-img">
+            <img src="./assets/images/project-1.png" alt="SaaS Platform">
+            <div class="project-tags">
+              <span class="tag">Web App</span>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>SaaS Platform</h3>
+            <p>High-performance SaaS data dashboard and analytics suite with real-time updates.</p>
+            <a href="https://edflow-app.onrender.com/" target="_blank" class="btn-link">View Platform <ion-icon name="arrow-forward"></ion-icon></a>
+          </div>
+        </div>
+
+        <div class="glass-panel project-card reveal" data-tilt data-tilt-glare="true" data-tilt-max-glare="0.4">
+          <div class="project-img">
+            <img src="./assets/images/project-2.png" alt="Orizon">
+            <div class="project-tags">
+              <span class="tag">Machine Learning</span>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>Travel Recommendation using Machine Learning</h3>
+            <p>A machine learning-based travel recommendation system that suggests destinations based on user preferences and past travel history.</p>
+            <a href="https://destinifytours.vercel.app/" target="_blank" class="btn-link">View Platform <ion-icon name="arrow-forward"></ion-icon></a>
+          </div>
+        </div>
+
+        <div class="glass-panel project-card reveal" data-tilt data-tilt-glare="true" data-tilt-max-glare="0.4">
+          <div class="project-img">
+            <img src="./assets/images/project-3.jpg" alt="Fundo">
+            <div class="project-tags">
+              <span class="tag">Machine Learning</span>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>House Price Prediction using Machine Learning</h3>
+            <p>A machine learning-based house price prediction system that predicts house prices based on user preferences and past house price data.</p>
+            <a href="https://house-price-prediction-using-machine-learning.vercel.app/" target="_blank" class="btn-link">View Platform <ion-icon name="arrow-forward"></ion-icon></a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS (CARD SHUFFLE) -->
+    <section id="testimonials" class="testimonials-section">
+      <div class="section-header">
+        <div class="badge-guide">
+          <span></span> Feedback
+        </div>
+        <h3>Client <span class="gradient-text">Feedback</span></h3>
+        <p>Here's what my clients have to say about my work and the impact it has had on their businesses.</p>
+      </div>
+      
+      <div class="testimonial-container reveal">
+         <div class="card-stack" id="testimonial-stack">
+            
+            <!-- Card 1 -->
+            <div class="glass-panel t-card" data-index="0">
+               <ion-icon name="chatbubbles-outline" class="quote-icon"></ion-icon>
+               <p class="t-text">"Somnath completely overhauled our web infrastructure. The transition was seamless and the glassmorphic aesthetics elevated our brand identity massively!"</p>
+               <div class="t-author">
+                  <div class="t-avatar"><img src="https://i.pravatar.cc/100?img=1" alt="Avatar"></div>
+                  <div class="t-meta">
+                     <h4>Sarah Jenkins</h4>
+                     <span>CTO @ Orizon</span>
+                  </div>
+               </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="glass-panel t-card" data-index="1">
+               <ion-icon name="chatbubbles-outline" class="quote-icon"></ion-icon>
+               <p class="t-text">"Outstanding attention to detail. The UI components are incredibly responsive, and the backend microservices run flawlessly. Highly recommended."</p>
+               <div class="t-author">
+                  <div class="t-avatar"><img src="https://i.pravatar.cc/100?img=2" alt="Avatar"></div>
+                  <div class="t-meta">
+                     <h4>Michael Ross</h4>
+                     <span>Product Lead @ Finance Platform</span>
+                  </div>
+               </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="glass-panel t-card" data-index="2">
+               <ion-icon name="chatbubbles-outline" class="quote-icon"></ion-icon>
+               <p class="t-text">"A rare combination of eye-catching frontend design and highly functional backend logic. Somnath delivered exactly what we needed ahead of schedule."</p>
+               <div class="t-author">
+                  <div class="t-avatar"><img src="https://i.pravatar.cc/100?img=3" alt="Avatar"></div>
+                  <div class="t-meta">
+                     <h4>Emily Chen</h4>
+                     <span>Founder @ Fundo App</span>
+                  </div>
+               </div>
+            </div>
+
+         </div>
+         <p class="shuffle-hint"><ion-icon name="swap-vertical-outline"></ion-icon> Click to shuffle</p>
+      </div>
+    </section>
+
+    <!-- HOW TO CONNECT SECTION (REDESIGNED) -->
+    <section id="how-to-connect" class="how-to-connect-section reveal">
+      <div class="section-header">
+        <div class="badge-guide">
+          <span></span> Guide
+        </div>
+        <h3>See My Process in <span class="gradient-text">Action</span></h3>
+        <p>Master the platform in minutes. Watch our quick start guide and follow the simple steps to revolutionize your campus management today.</p>
+      </div>
+
+      <div class="connect-grid">
+        
+        <!-- Video Container (Left Side) -->
+        <div class="video-mac-container reveal" data-tilt data-tilt-glare="true" data-tilt-max-glare="0.2">
+          <div class="glowing-backplate"></div>
+          
+          <div class="mac-mockup">
+            <div class="mac-mockup-header">
+              <div class="mac-traffic">
+                <div class="mac-dot red"></div>
+                <div class="mac-dot yellow"></div>
+                <div class="mac-dot green"></div>
+              </div>
+              <div class="mac-address-bar">
+              <span class="video-status-text">somnath-demo.mp4</span>
+              <button id="video-unmute-btn" class="unmute-btn" aria-label="Unmute Video">
+                <ion-icon name="volume-mute-outline" id="volume-icon"></ion-icon>
+              </button>
+            </div>
+            </div>
+            
+            <!-- Youtube Video Player (Just change the ID here!) -->
+              <div class="video-frame">
+                <div id="youtube-player" data-video-id="MxIEUzBJn8U"></div>
+              </div>
+          </div>
+        </div>
+
+        <!-- Instructions (Right Side) -->
+        <div class="steps-sequence reveal">
+          <div class="steps-line"></div>
+
+          <!-- Step 1 -->
+          <div class="step-row">
+            <div class="step-bubble">1</div>
+            <div class="step-info">
+              <h4>Define Objectives</h4>
+              <p>We start by aligning on your project goals and technical requirements to ensure a rock-solid foundation.</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-row">
+            <div class="step-bubble">2</div>
+            <div class="step-info">
+              <h4>Design & Prototype</h4>
+              <p>Iterative UI/UX design phases where we bring your vision to life with high-fidelity interactive prototypes.</p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-row">
+            <div class="step-bubble">3</div>
+            <div class="step-info">
+              <h4>Build & Deploy</h4>
+              <p>Developing with industry-standard protocols and deploying your high-performance application to the cloud.</p>
+            </div>
+          </div>
+
+          <!-- CTA Area -->
+          <div class="step-cta">
+            <a href="#contact" class="cta-btn">
+              Let's Build Something <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT DASHBOARD -->
+    <section id="contact" class="contact-section">
+      <div class="section-header">
+        <div class="badge-guide">
+          <span></span> Contact
+        </div>
+        <h3>Initialize <span class="gradient-text">Connection</span></h3>
+        <p>Ready to start your next project? Drop a message or connect through social channels to initialize our collaboration.</p>
+      </div>
+
+      <div class="contact-dashboard">
+        <div class="glass-panel contact-info-panel reveal">
+          <div class="info-item">
+            <div class="icon-circle"><ion-icon name="mail-outline"></ion-icon></div>
+            <div>
+              <h4>Transmission</h4>
+              <a href="mailto:sen126265@gmail.com">sen126265@gmail.com</a>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="icon-circle"><ion-icon name="location-outline"></ion-icon></div>
+            <div>
+              <h4>Base Operations</h4>
+              <p>Goaltore, Paschim Medinipur, West Bengal, India, 721128</p>
+            </div>
+          </div>
+
+          <div class="social-grid">
+            <a href="https://github.com/somnath-sen" class="social-btn"><ion-icon name="logo-github"></ion-icon></a>
+            <a href="https://www.linkedin.com/in/thesomishere/" class="social-btn"><ion-icon
+                name="logo-linkedin"></ion-icon></a>
+            <a href="https://wa.me/919933750793" class="social-btn"><ion-icon name="logo-whatsapp"></ion-icon></a>
+            <a href="https://www.instagram.com/thesomishere/" class="social-btn"><ion-icon
+                name="logo-instagram"></ion-icon></a>
+          </div>
+        </div>
+
+        <div class="glass-panel form-panel reveal">
+          <form action="#" class="terminal-form" data-form>
+            <div class="input-row">
+              <div class="input-wrapper">
+                <label>Identification (Name)</label>
+                <input type="text" name="fullname" placeholder="John Doe" required data-form-input>
+              </div>
+              <div class="input-wrapper">
+                <label>Return Address (Email)</label>
+                <input type="email" name="email" placeholder="john@example.com" required data-form-input>
+              </div>
+            </div>
+            <div class="input-wrapper">
+              <label>Payload (Message)</label>
+              <textarea name="message" rows="4" placeholder="How can we collaborate?" required
+                data-form-input></textarea>
+            </div>
+            <button type="submit" class="btn primary-btn submit-btn" disabled data-form-btn>
+              <span class="btn-text">Transmit Payload</span>
+              <ion-icon class="btn-icon btn-icon-send" name="paper-plane-outline"></ion-icon>
+              <ion-icon class="btn-icon btn-icon-loading" name="sync-outline"></ion-icon>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Glass Footer -->
+  <footer class="glass-footer">
+    
+    <!-- Water Flow Animation -->
+    <svg class="editorial-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+      <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+      </defs>
+      <g class="parallax">
+        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(99, 102, 241, 0.4)" />
+        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(236, 72, 153, 0.3)" />
+        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(6, 182, 212, 0.2)" />
+        <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--panel-border)" />
+      </g>
+    </svg>
+
+    <div class="footer-content container">
+      <div class="footer-links">
+        <button class="modal-trigger" data-target="#terms-modal">Terms and Conditions</button>
+        <button class="modal-trigger" data-target="#policy-modal">Policy</button>
+      </div>
+      
+      <div class="footer-attr-panel reveal">
+          <p>
+              Designed & Developed by 
+              <span class="heart-icon"><i class="fa-solid fa-heart"></i></span> 
+              <a href="https://github.com/somnath-sen" target="_blank" class="creator-link">Somnath Sen</a>
+          </p>
+      </div>
+
+      <div class="footer-copyright">
+        Copyright © 2026 Somnath Sen. All rights reserved.
+      </div>
+    </div> </div>
+  </footer>
+
+  <!-- MacOS Styled Modals -->
+  <div class="mac-modal-overlay" id="terms-modal">
+    <div class="mac-modal">
+      <div class="mac-header">
+        <div class="mac-traffic-lights">
+          <button class="mac-btn close-btn modal-close"></button>
+          <button class="mac-btn min-btn"></button>
+          <button class="mac-btn max-btn"></button>
+        </div>
+        <div class="mac-title">Terms & Conditions.txt</div>
+      </div>
+      <div class="mac-body">
+        <h2>Terms and Conditions</h2>
+        <p>Welcome to my professional portfolio. By accessing this platform, you agree to these terms.</p>
+        <br>
+        <h3>1. Intellectual Property</h3>
+        <p>The design, structure, and original assets (excluding third-party libraries) are intellectually owned by
+          Somnath Sen. You may not duplicate or resell this theme without permission.</p>
+        <br>
+        <h3>2. Communications</h3>
+        <p>When you transmit a payload (send a message) through the contact dashboard, you authorize me to reply to your
+          provided email address regarding professional inquiries.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mac-modal-overlay" id="policy-modal">
+    <div class="mac-modal">
+      <div class="mac-header">
+        <div class="mac-traffic-lights">
+          <button class="mac-btn close-btn modal-close"></button>
+          <button class="mac-btn min-btn"></button>
+          <button class="mac-btn max-btn"></button>
+        </div>
+        <div class="mac-title">Privacy_Policy.txt</div>
+      </div>
+      <div class="mac-body">
+        <h2>Privacy Policy</h2>
+        <p>Your privacy is respected while navigating this digital environment.</p>
+        <br>
+        <h3>1. Data Collection</h3>
+        <p>The only data actively collected is the information you consentingly provide through the contact transmission
+          form (Name, Email, Message).</p>
+        <br>
+        <h3>2. Data Storage</h3>
+        <p>Payloads are transmitted securely to a private, encrypted Google Sheets database utilized solely for reading
+          communication and not sold to third-party brokers.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div class="toast-notification" data-toast>
+    <div class="toast-icon-box"><ion-icon name="checkmark-circle-outline" data-toast-icon></ion-icon></div>
+    <p data-toast-message>Transmission successful!</p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="./assets/js/script.js"></script>
+
+</body>
+
+</html>
