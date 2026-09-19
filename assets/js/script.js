@@ -20,7 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnCloseContents = document.getElementById('btnCloseContents');
   const contentsOverlay = document.getElementById('contentsOverlay');
   const contentsItems = document.querySelectorAll('.contents-item');
+  const spreadBadge = document.getElementById('spreadBadge');
   const spreadIndicator = document.getElementById('spreadIndicator');
+  const spreadFolio = document.getElementById('spreadFolio');
   const btnSoundToggle = document.getElementById('btnSoundToggle');
   const soundIcon = document.getElementById('soundIcon');
   const cornerCurls = document.querySelectorAll('.page-corner-curl');
@@ -31,16 +33,16 @@ document.addEventListener('DOMContentLoaded', () => {
   let soundEnabled = false;
 
   // Chapter labels for folios and indicator
-  const chapterTitles = [
-    "Cover — Selected Work & Biography",
-    "Preface — 01 / 14",
-    "Chapter 01: About Me — 02–03 / 14",
-    "Chapter 02: Journey & Timeline — 04–05 / 14",
-    "Chapter 03: Build & Analyze — 06–07 / 14",
-    "Chapter 04: Data Analytics — 08–09 / 14",
-    "Chapter 05: Works & Case Study — 10–11 / 14",
-    "Chapter 06: Philosophy & Credentials — 12–13 / 14",
-    "Epilogue & Back Cover — 14 / 14"
+  const chapterMetadata = [
+    { badge: "COVER", title: "Selected Works", folio: "Front" },
+    { badge: "PREFACE", title: "Hello, I'm Somnath", folio: "01 / 14" },
+    { badge: "CH. 01", title: "About & Journey", folio: "02–05" },
+    { badge: "CH. 02", title: "Two Sides of Work", folio: "06–07" },
+    { badge: "CH. 03", title: "Data Analytics", folio: "08–09" },
+    { badge: "CH. 04", title: "Featured Projects", folio: "10–11" },
+    { badge: "CH. 05", title: "EdFlow Case Study", folio: "11–12" },
+    { badge: "CH. 06", title: "Workbench & NPTEL", folio: "12–13" },
+    { badge: "EPILOGUE", title: "Contact & Notes", folio: "14 / 14" }
   ];
 
   /* --------------------------------------------------------------------------
@@ -169,8 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Update spread indicator
-    if (spreadIndicator) {
-      spreadIndicator.textContent = chapterTitles[Math.min(currentSheetIndex, chapterTitles.length - 1)] || `Spread ${currentSheetIndex}`;
+    const currentMeta = chapterMetadata[Math.min(currentSheetIndex, chapterMetadata.length - 1)];
+    if (currentMeta) {
+      if (spreadBadge) spreadBadge.textContent = currentMeta.badge;
+      if (spreadIndicator) spreadIndicator.textContent = currentMeta.title;
+      if (spreadFolio) spreadFolio.textContent = currentMeta.folio;
     }
   };
 

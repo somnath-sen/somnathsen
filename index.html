@@ -1062,37 +1062,50 @@
       </div>
     </div>
 
-    <!-- Book Control Bar (Floating Navigation Bar) -->
-    <nav class="book-controls" aria-label="Book controls">
-      <button class="control-btn" id="btnPrev" aria-label="Previous Page">
-        <i class="fa-solid fa-chevron-left"></i>
-        <span>Prev</span>
+    <!-- Book Vertical Navigation Dock (Right Side) -->
+    <nav class="book-controls vertical-dock" id="bookControls" aria-label="Book navigation controls">
+      
+      <!-- Prev Action (Up / Back) -->
+      <button class="control-btn control-btn-prev" id="btnPrev" aria-label="Previous Page" title="Previous Spread (Left Arrow)">
+        <i class="fa-solid fa-chevron-up"></i>
+        <span class="btn-label">Prev</span>
       </button>
 
       <div class="controls-divider"></div>
 
-      <div class="spread-indicator" id="spreadIndicator">Cover</div>
+      <!-- Chapter / Spread Folio Badge -->
+      <div class="spread-indicator-wrap" title="Current Chapter & Folio">
+        <span class="spread-badge" id="spreadBadge">COVER</span>
+        <div class="spread-indicator" id="spreadIndicator">Selected Work</div>
+        <span class="spread-folio" id="spreadFolio">Front</span>
+      </div>
 
       <div class="controls-divider"></div>
 
-      <button class="control-btn" id="btnNext" aria-label="Next Page">
-        <span>Next</span>
-        <i class="fa-solid fa-chevron-right"></i>
+      <!-- Next Action (Down / Forward) -->
+      <button class="control-btn control-btn-next" id="btnNext" aria-label="Next Page" title="Next Spread (Right Arrow)">
+        <span class="btn-label">Next</span>
+        <i class="fa-solid fa-chevron-down"></i>
       </button>
 
       <div class="controls-divider"></div>
 
-      <button class="control-btn" id="btnContents" aria-label="Table of Contents">
-        <i class="fa-solid fa-list"></i>
-        <span>Contents</span>
+      <!-- Quick Chapter Contents Modal -->
+      <button class="control-btn" id="btnContents" aria-label="Table of Contents" title="Table of Contents">
+        <i class="fa-solid fa-list-ul"></i>
+        <span class="btn-label">Contents</span>
       </button>
 
-      <button class="control-btn" id="btnCloseBook" aria-label="Close Book to Cover">
-        <i class="fa-solid fa-book"></i>
-        <span>Cover</span>
+      <!-- Return to Hardcover -->
+      <button class="control-btn" id="btnCloseBook" aria-label="Close Book to Cover" title="Return to Cover">
+        <i class="fa-solid fa-book-bookmark"></i>
+        <span class="btn-label">Cover</span>
       </button>
 
-      <button class="control-btn" id="btnSoundToggle" aria-label="Toggle Page Turning Sound">
+      <div class="controls-divider"></div>
+
+      <!-- Sound Toggle -->
+      <button class="control-btn control-btn-sound" id="btnSoundToggle" aria-label="Toggle Page Turning Sound" title="Toggle Sound">
         <i class="fa-solid fa-volume-xmark" id="soundIcon"></i>
       </button>
     </nav>
