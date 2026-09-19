@@ -4,493 +4,822 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Somnath Sen | Full Stack Developer</title>
-  <!-- Fonts & Icons -->
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>Somnath Sen — Software Developer & Builder</title>
+  <meta name="title" content="Somnath Sen — Software Developer & Builder">
+  <meta name="description" content="Personal portfolio of Somnath Sen — MCA student and software developer specializing in full-stack web applications, modern interfaces, and machine learning solutions.">
+  <meta name="keywords" content="Somnath Sen, Software Developer, Full-Stack Developer, MCA, React, Node.js, Python, Machine Learning, Web Development, India">
+  <meta name="author" content="Somnath Sen">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://somnath-sen.github.io/somnathsen/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://somnath-sen.github.io/somnathsen/">
+  <meta property="og:title" content="Somnath Sen — Software Developer & Builder">
+  <meta property="og:description" content="Personal portfolio of Somnath Sen — MCA student and software developer focused on practical applications, modern interfaces, and machine learning.">
+  <meta property="og:image" content="./assets/images/somnathsen.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://somnath-sen.github.io/somnathsen/">
+  <meta property="twitter:title" content="Somnath Sen — Software Developer & Builder">
+  <meta property="twitter:description" content="Personal portfolio of Somnath Sen — MCA student and software developer focused on practical applications, modern interfaces, and machine learning.">
+  <meta property="twitter:image" content="./assets/images/somnathsen.jpg">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="./assets/images/somnathsen.png" type="image/png">
+
+  <!-- Typography: Inter & Space Grotesk via Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome 6 for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="./assets/css/style.css">
-  <link rel="shortcut icon" href="./assets/images/somnathsen.jpg" type="image/x-icon">
 </head>
 
-<body data-theme="dark">
+<body>
 
-  <!-- Colorful Animated Orbs Background -->
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
+  <!-- Top Scroll Progress Indicator -->
+  <div class="scroll-progress" id="scrollProgress"></div>
 
-  <!-- Noise Overlay for Texture -->
+  <!-- Custom Cursor Elements (Desktop only) -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Ambient Radial Glow Layer -->
+  <div class="ambient-glow"></div>
+
+  <!-- Subtle Film Grain Texture Overlay -->
   <div class="noise-overlay"></div>
 
-  <!-- Navbar -->
-  <nav class="glass-nav">
-    <div class="logo">
-      <span class="logo-icon"><ion-icon name="code-slash"></ion-icon></span>
-      <span class="logo-text">Somnath Sen.</span>
-    </div>
-    <div class="nav-links">
-      <a href="#hero">Home</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Work</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <button class="theme-btn" data-theme-btn aria-label="Toggle theme">
-      <ion-icon name="moon-outline" class="moon"></ion-icon>
-      <ion-icon name="sun-outline" class="sun"></ion-icon>
-    </button>
-  </nav>
+  <!-- Floating Minimal Header / Navigation -->
+  <header class="site-header">
+    <nav class="navbar" id="mainNavbar">
+      <a href="#hero" class="brand-logo" aria-label="Somnath Sen Home">
+        <span class="brand-monogram">SS</span>
+        <span class="brand-name">Somnath Sen</span>
+      </a>
 
-  <main class="container">
+      <!-- Desktop Nav Links -->
+      <ul class="nav-menu">
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#work" class="nav-link">Work</a></li>
+        <li><a href="#building" class="nav-link">Building</a></li>
+        <li><a href="#journey" class="nav-link">Journey</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
 
-    <!-- HERO AREA -->
-    <section id="hero" class="hero-section">
-      <div class="section-header">
-        <div class="badge-guide">
-          <span></span> About Me
-        </div>
-        <h3>See My <span class="gradient-text">Process</span></h3>
-        <p>I am a full-stack engineer with a passion for building beautiful, high-performance web applications that convert and captivate.</p>
-      </div>
-      
-      <div class="hero-content reveal" data-tilt data-tilt-max="2" data-tilt-glare="true" data-tilt-max-glare="0.1">
-        <div class="glass-panel main-panel">
-          <div class="status-badge">
-            <span class="pulse-dot"></span> Available for Work
-          </div>
-          <h1 class="hero-title">
-            Building <br>
-            <span class="gradient-text type-text"></span><span class="cursor">|</span>
-          </h1>
-          <p class="hero-desc">I’m Somnath Sen, a Full-Stack Engineer and UI/UX Architect creating beautiful,
-            high-performance web applications that convert and captivate.</p>
-
-          <div class="hero-actions">
-            <a href="#contact" class="btn primary-btn">
-              <ion-icon name="rocket-outline"></ion-icon> Start a Project
-            </a>
-            <a href="https://github.com/somnath-sen" class="btn outline-btn">
-              <ion-icon name="logo-github"></ion-icon> View Github
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-visual reveal">
-        <div class="glass-panel profile-panel" data-tilt data-tilt-scale="1.05">
-          <div class="profile-img-box">
-            <img src="./assets/images/somnathsen.jpg" alt="Somnath Sen">
-          </div>
-          <h3>Somnath Sen</h3>
-          <p class="role">Software Engineer</p>
-
-          <div class="badges-row">
-            <div class="floating-badge badge-1"><ion-icon name="logo-laravel"></ion-icon> Laravel</div>
-            <div class="floating-badge badge-2"><ion-icon name="logo-nodejs"></ion-icon> Node.js</div>
-            <div class="floating-badge badge-3"><ion-icon name="color-palette-outline"></ion-icon> UI/UX</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SKILLS ARSENAL -->
-    <section id="skills" class="skills-section reveal">
-      <div class="section-header">
-        <div class="badge-guide">
-          <span></span> Skills
-        </div>
-        <h3>Tech <span class="gradient-text">Arsenal</span></h3>
-        <p>Here's a showcase of my recent projects, demonstrating my skills in full-stack development and modern web technologies.</p>
-      </div>
-      <div class="glass-panel skills-panel">
-        <div class="skills-grid">
-
-          <!-- Skill Block -->
-          <div class="skill-category">
-            <h3>Frontend UI / UX</h3>
-            <div class="skill-list">
-              <div class="skill-tag"><ion-icon name="logo-html5"></ion-icon> HTML/CSS</div>
-              <div class="skill-tag"><ion-icon name="logo-javascript"></ion-icon> JavaScript / ES6</div>
-              <div class="skill-tag"><ion-icon name="logo-react"></ion-icon> React Native</div>
-              <div class="skill-tag"><ion-icon name="color-palette-outline"></ion-icon> Figma</div>
-            </div>
-          </div>
-
-          <!-- Skill Block -->
-          <div class="skill-category">
-            <h3>Backend & Architecture</h3>
-            <div class="skill-list">
-              <div class="skill-tag"><ion-icon name="logo-laravel"></ion-icon> PHP / Laravel</div>
-              <div class="skill-tag"><ion-icon name="logo-nodejs"></ion-icon> Node / Express</div>
-              <div class="skill-tag"><ion-icon name="server-outline"></ion-icon> MySQL / MongoDB</div>
-              <div class="skill-tag"><ion-icon name="cloud-outline"></ion-icon> API Integration</div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects" class="projects-section">
-      <div class="section-header">
-        <div class="badge-guide">
-          <span></span> Works
-        </div>
-        <h3>Featured <span class="gradient-text">Deployments</span></h3>
-        <p>Here's a showcase of my recent projects, demonstrating my skills in full-stack development and modern web technologies.</p>
-      </div>
-      <div class="projects-grid">
-
-        <div class="glass-panel project-card reveal" data-tilt data-tilt-glare="true" data-tilt-max-glare="0.4">
-          <div class="project-img">
-            <img src="./assets/images/project-1.png" alt="SaaS Platform">
-            <div class="project-tags">
-              <span class="tag">Web App</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <h3>SaaS Platform</h3>
-            <p>High-performance SaaS data dashboard and analytics suite with real-time updates.</p>
-            <a href="https://edflow-app.onrender.com/" target="_blank" class="btn-link">View Platform <ion-icon name="arrow-forward"></ion-icon></a>
-          </div>
-        </div>
-
-        <div class="glass-panel project-card reveal" data-tilt data-tilt-glare="true" data-tilt-max-glare="0.4">
-          <div class="project-img">
-            <img src="./assets/images/project-2.png" alt="Orizon">
-            <div class="project-tags">
-              <span class="tag">Machine Learning</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <h3>Travel Recommendation using Machine Learning</h3>
-            <p>A machine learning-based travel recommendation system that suggests destinations based on user preferences and past travel history.</p>
-            <a href="https://destinifytours.vercel.app/" target="_blank" class="btn-link">View Platform <ion-icon name="arrow-forward"></ion-icon></a>
-          </div>
-        </div>
-
-        <div class="glass-panel project-card reveal" data-tilt data-tilt-glare="true" data-tilt-max-glare="0.4">
-          <div class="project-img">
-            <img src="./assets/images/project-3.jpg" alt="Fundo">
-            <div class="project-tags">
-              <span class="tag">Machine Learning</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <h3>House Price Prediction using Machine Learning</h3>
-            <p>A machine learning-based house price prediction system that predicts house prices based on user preferences and past house price data.</p>
-            <a href="https://house-price-prediction-using-machine-learning.vercel.app/" target="_blank" class="btn-link">View Platform <ion-icon name="arrow-forward"></ion-icon></a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- TESTIMONIALS (CARD SHUFFLE) -->
-    <section id="testimonials" class="testimonials-section">
-      <div class="section-header">
-        <div class="badge-guide">
-          <span></span> Feedback
-        </div>
-        <h3>Client <span class="gradient-text">Feedback</span></h3>
-        <p>Here's what my clients have to say about my work and the impact it has had on their businesses.</p>
-      </div>
-      
-      <div class="testimonial-container reveal">
-         <div class="card-stack" id="testimonial-stack">
-            
-            <!-- Card 1 -->
-            <div class="glass-panel t-card" data-index="0">
-               <ion-icon name="chatbubbles-outline" class="quote-icon"></ion-icon>
-               <p class="t-text">"Somnath completely overhauled our web infrastructure. The transition was seamless and the glassmorphic aesthetics elevated our brand identity massively!"</p>
-               <div class="t-author">
-                  <div class="t-avatar"><img src="https://i.pravatar.cc/100?img=1" alt="Avatar"></div>
-                  <div class="t-meta">
-                     <h4>Sarah Jenkins</h4>
-                     <span>CTO @ Orizon</span>
-                  </div>
-               </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="glass-panel t-card" data-index="1">
-               <ion-icon name="chatbubbles-outline" class="quote-icon"></ion-icon>
-               <p class="t-text">"Outstanding attention to detail. The UI components are incredibly responsive, and the backend microservices run flawlessly. Highly recommended."</p>
-               <div class="t-author">
-                  <div class="t-avatar"><img src="https://i.pravatar.cc/100?img=2" alt="Avatar"></div>
-                  <div class="t-meta">
-                     <h4>Michael Ross</h4>
-                     <span>Product Lead @ Finance Platform</span>
-                  </div>
-               </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="glass-panel t-card" data-index="2">
-               <ion-icon name="chatbubbles-outline" class="quote-icon"></ion-icon>
-               <p class="t-text">"A rare combination of eye-catching frontend design and highly functional backend logic. Somnath delivered exactly what we needed ahead of schedule."</p>
-               <div class="t-author">
-                  <div class="t-avatar"><img src="https://i.pravatar.cc/100?img=3" alt="Avatar"></div>
-                  <div class="t-meta">
-                     <h4>Emily Chen</h4>
-                     <span>Founder @ Fundo App</span>
-                  </div>
-               </div>
-            </div>
-
-         </div>
-         <p class="shuffle-hint"><ion-icon name="swap-vertical-outline"></ion-icon> Click to shuffle</p>
-      </div>
-    </section>
-
-    <!-- HOW TO CONNECT SECTION (REDESIGNED) -->
-    <section id="how-to-connect" class="how-to-connect-section reveal">
-      <div class="section-header">
-        <div class="badge-guide">
-          <span></span> Guide
-        </div>
-        <h3>See My Process in <span class="gradient-text">Action</span></h3>
-        <p>Master the platform in minutes. Watch our quick start guide and follow the simple steps to revolutionize your campus management today.</p>
-      </div>
-
-      <div class="connect-grid">
+      <!-- Action Items -->
+      <div class="nav-actions">
+        <a href="#contact" class="btn-resume">
+          <span>Let's Talk</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
         
-        <!-- Video Container (Left Side) -->
-        <div class="video-mac-container reveal" data-tilt data-tilt-glare="true" data-tilt-max-glare="0.2">
-          <div class="glowing-backplate"></div>
-          
-          <div class="mac-mockup">
-            <div class="mac-mockup-header">
-              <div class="mac-traffic">
-                <div class="mac-dot red"></div>
-                <div class="mac-dot yellow"></div>
-                <div class="mac-dot green"></div>
-              </div>
-              <div class="mac-address-bar">
-              <span class="video-status-text">somnath-demo.mp4</span>
-              <button id="video-unmute-btn" class="unmute-btn" aria-label="Unmute Video">
-                <ion-icon name="volume-mute-outline" id="volume-icon"></ion-icon>
-              </button>
-            </div>
-            </div>
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Color Theme">
+          <i class="fa-regular fa-sun theme-icon-sun"></i>
+          <i class="fa-regular fa-moon theme-icon-moon"></i>
+        </button>
+
+        <button class="mobile-toggle" id="mobileToggleBtn" aria-label="Open Navigation Menu">
+          <i class="fa-solid fa-bars" id="menuIcon"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <ul class="mobile-nav-links">
+      <li><a href="#about" class="mobile-nav-link">About</a></li>
+      <li><a href="#skills" class="mobile-nav-link">Skills</a></li>
+      <li><a href="#work" class="mobile-nav-link">Work</a></li>
+      <li><a href="#building" class="mobile-nav-link">Currently Building</a></li>
+      <li><a href="#journey" class="mobile-nav-link">Journey</a></li>
+      <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <div class="main-wrapper">
+    <main>
+
+      <!-- ====================================================================
+           HERO SECTION
+           ==================================================================== -->
+      <section id="hero" class="section hero-section">
+        <div class="container">
+          <div class="hero-grid">
             
-            <!-- Youtube Video Player (Just change the ID here!) -->
-              <div class="video-frame">
-                <div id="youtube-player" data-video-id="MxIEUzBJn8U"></div>
+            <!-- Hero Content (Left) -->
+            <div class="hero-content reveal-init">
+              <div class="hero-status-pill">
+                <span class="status-dot"></span>
+                <span>SOFTWARE DEVELOPER • MCA</span>
               </div>
+
+              <h1 class="hero-headline">
+                Building digital experiences that <span class="gradient-text">actually matter.</span>
+              </h1>
+
+              <p class="hero-bio">
+                Hi, I'm <strong>Somnath Sen</strong> — an MCA student and software developer focused on building practical web applications, modern interfaces, and intelligent solutions with clean engineering.
+              </p>
+
+              <div class="hero-actions">
+                <a href="#work" class="btn btn-primary">
+                  <span>View My Work</span>
+                  <i class="fa-solid fa-arrow-down"></i>
+                </a>
+
+                <a href="#contact" class="btn btn-secondary">
+                  <span>Get in Touch</span>
+                  <i class="fa-regular fa-envelope"></i>
+                </a>
+
+                <div class="hero-social-links">
+                  <a href="https://github.com/somnath-sen" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub Profile">
+                    <i class="fa-brands fa-github"></i>
+                  </a>
+                  <a href="https://www.linkedin.com/in/thesomishere/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn Profile">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hero Portrait Composition (Right) -->
+            <div class="hero-visual-card reveal-init">
+              <div class="portrait-frame">
+                <img src="./assets/images/somnathsen.png" onerror="this.src='./assets/images/somnathsen.jpg'" alt="Somnath Sen" class="portrait-img">
+                <div class="portrait-overlay-gradient"></div>
+
+                <!-- Subtle Technical Metadata Tags -->
+                <div class="meta-tag-card meta-tag-top-left">
+                  <span class="meta-tag-label">Academic Focus</span>
+                  <span class="meta-tag-value">
+                    <i class="fa-solid fa-graduation-cap"></i> MCA Graduate Student
+                  </span>
+                </div>
+
+                <div class="meta-tag-card meta-tag-bottom-right">
+                  <span class="meta-tag-label">Status</span>
+                  <span class="meta-tag-value">
+                    <i class="fa-solid fa-circle-check" style="color: var(--accent-emerald);"></i> Open to Opportunities
+                  </span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
+      </section>
 
-        <!-- Instructions (Right Side) -->
-        <div class="steps-sequence reveal">
-          <div class="steps-line"></div>
+      <!-- ====================================================================
+           ABOUT SECTION
+           ==================================================================== -->
+      <section id="about" class="section about-section">
+        <div class="container">
+          
+          <div class="section-header reveal-init">
+            <span class="section-tag">01 // Profile</span>
+            <h2 class="section-title">About Me</h2>
+          </div>
 
-          <!-- Step 1 -->
-          <div class="step-row">
-            <div class="step-bubble">1</div>
-            <div class="step-info">
-              <h4>Define Objectives</h4>
-              <p>We start by aligning on your project goals and technical requirements to ensure a rock-solid foundation.</p>
+          <div class="about-grid">
+            <div class="about-left reveal-init">
+              <h3 class="about-statement">
+                A developer driven by curiosity, architectural clarity, and functional engineering.
+              </h3>
+            </div>
+
+            <div class="about-narrative reveal-init">
+              <p>
+                I am currently pursuing my <strong>Master of Computer Applications (MCA)</strong> after completing a <strong>B.Sc. in Computer Science</strong>. My focus centers on full-stack application development, data architectures, and practical machine learning solutions.
+              </p>
+              <p>
+                I believe great software emerges from the intersection of thoughtful user experience and clean engineering. Whether designing database schemas, architecting RESTful services, or refining frontend responsiveness, I prioritize speed, maintainability, and real-world utility over vanity metrics.
+              </p>
+
+              <!-- Factual Specifications Grid -->
+              <div class="about-specs-grid">
+                <div class="spec-item">
+                  <span class="spec-label">Location</span>
+                  <span class="spec-value">West Bengal, India</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Education</span>
+                  <span class="spec-value">MCA (Master of Computer Applications)</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Undergraduate</span>
+                  <span class="spec-value">B.Sc. Computer Science</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Core Focus</span>
+                  <span class="spec-value">Full-Stack &amp; Applied ML</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- Step 2 -->
-          <div class="step-row">
-            <div class="step-bubble">2</div>
-            <div class="step-info">
-              <h4>Design & Prototype</h4>
-              <p>Iterative UI/UX design phases where we bring your vision to life with high-fidelity interactive prototypes.</p>
-            </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SKILLS SECTION
+           ==================================================================== -->
+      <section id="skills" class="section skills-section">
+        <div class="container">
+          
+          <div class="section-header reveal-init">
+            <span class="section-tag">02 // Capabilities</span>
+            <h2 class="section-title">Technical Toolkit</h2>
+            <p class="section-subtitle">
+              Technologies, frameworks, and tools I use to design, develop, and deploy production web applications.
+            </p>
           </div>
 
-          <!-- Step 3 -->
-          <div class="step-row">
-            <div class="step-bubble">3</div>
-            <div class="step-info">
-              <h4>Build & Deploy</h4>
-              <p>Developing with industry-standard protocols and deploying your high-performance application to the cloud.</p>
+          <div class="skills-categories-grid">
+
+            <!-- Category 1: Frontend -->
+            <div class="skill-card reveal-init">
+              <div class="skill-category-header">
+                <div class="skill-category-icon">
+                  <i class="fa-solid fa-code"></i>
+                </div>
+                <h3 class="skill-category-title">Frontend Engineering</h3>
+              </div>
+              <div class="tech-pills-wrap">
+                <span class="tech-pill"><i class="fa-brands fa-react"></i> React</span>
+                <span class="tech-pill"><i class="fa-brands fa-js"></i> JavaScript (ES6+)</span>
+                <span class="tech-pill"><i class="fa-brands fa-html5"></i> HTML5</span>
+                <span class="tech-pill"><i class="fa-brands fa-css3-alt"></i> CSS3 / Modern CSS</span>
+                <span class="tech-pill"><i class="fa-solid fa-mobile-screen"></i> Responsive UI/UX</span>
+                <span class="tech-pill"><i class="fa-brands fa-figma"></i> Figma</span>
+              </div>
             </div>
+
+            <!-- Category 2: Backend -->
+            <div class="skill-card reveal-init">
+              <div class="skill-category-header">
+                <div class="skill-category-icon">
+                  <i class="fa-solid fa-server"></i>
+                </div>
+                <h3 class="skill-category-title">Backend &amp; APIs</h3>
+              </div>
+              <div class="tech-pills-wrap">
+                <span class="tech-pill"><i class="fa-brands fa-node-js"></i> Node.js</span>
+                <span class="tech-pill"><i class="fa-solid fa-cubes"></i> Express.js</span>
+                <span class="tech-pill"><i class="fa-solid fa-network-wired"></i> RESTful APIs</span>
+                <span class="tech-pill"><i class="fa-solid fa-shield-halved"></i> Authentication &amp; JWT</span>
+                <span class="tech-pill"><i class="fa-solid fa-layer-group"></i> MVC Architecture</span>
+              </div>
+            </div>
+
+            <!-- Category 3: Database -->
+            <div class="skill-card reveal-init">
+              <div class="skill-category-header">
+                <div class="skill-category-icon">
+                  <i class="fa-solid fa-database"></i>
+                </div>
+                <h3 class="skill-category-title">Databases &amp; Storage</h3>
+              </div>
+              <div class="tech-pills-wrap">
+                <span class="tech-pill"><i class="fa-solid fa-leaf"></i> MongoDB</span>
+                <span class="tech-pill"><i class="fa-solid fa-table"></i> MySQL</span>
+                <span class="tech-pill"><i class="fa-solid fa-database"></i> PostgreSQL</span>
+                <span class="tech-pill"><i class="fa-solid fa-diagram-project"></i> Data Modeling</span>
+              </div>
+            </div>
+
+            <!-- Category 4: Programming Languages -->
+            <div class="skill-card reveal-init">
+              <div class="skill-category-header">
+                <div class="skill-category-icon">
+                  <i class="fa-solid fa-terminal"></i>
+                </div>
+                <h3 class="skill-category-title">Programming Languages</h3>
+              </div>
+              <div class="tech-pills-wrap">
+                <span class="tech-pill"><i class="fa-brands fa-python"></i> Python</span>
+                <span class="tech-pill"><i class="fa-brands fa-java"></i> Java</span>
+                <span class="tech-pill"><i class="fa-brands fa-js"></i> JavaScript</span>
+                <span class="tech-pill"><i class="fa-solid fa-file-code"></i> C / C++</span>
+              </div>
+            </div>
+
+            <!-- Category 5: Machine Learning -->
+            <div class="skill-card reveal-init">
+              <div class="skill-category-header">
+                <div class="skill-category-icon">
+                  <i class="fa-solid fa-brain"></i>
+                </div>
+                <h3 class="skill-category-title">Machine Learning &amp; Data</h3>
+              </div>
+              <div class="tech-pills-wrap">
+                <span class="tech-pill"><i class="fa-brands fa-python"></i> Python</span>
+                <span class="tech-pill"><i class="fa-solid fa-chart-pie"></i> Pandas</span>
+                <span class="tech-pill"><i class="fa-solid fa-calculator"></i> NumPy</span>
+                <span class="tech-pill"><i class="fa-solid fa-microchip"></i> Scikit-learn</span>
+                <span class="tech-pill"><i class="fa-solid fa-chart-line"></i> Predictive Modeling</span>
+              </div>
+            </div>
+
+            <!-- Category 6: Tools & Workflow -->
+            <div class="skill-card reveal-init">
+              <div class="skill-category-header">
+                <div class="skill-category-icon">
+                  <i class="fa-solid fa-toolbox"></i>
+                </div>
+                <h3 class="skill-category-title">Dev Tools &amp; Cloud</h3>
+              </div>
+              <div class="tech-pills-wrap">
+                <span class="tech-pill"><i class="fa-brands fa-git-alt"></i> Git</span>
+                <span class="tech-pill"><i class="fa-brands fa-github"></i> GitHub</span>
+                <span class="tech-pill"><i class="fa-solid fa-cloud-arrow-up"></i> Vercel</span>
+                <span class="tech-pill"><i class="fa-solid fa-server"></i> Render</span>
+                <span class="tech-pill"><i class="fa-solid fa-paper-plane"></i> Postman</span>
+              </div>
+            </div>
+
           </div>
 
-          <!-- CTA Area -->
-          <div class="step-cta">
-            <a href="#contact" class="cta-btn">
-              Let's Build Something <i class="fa-solid fa-arrow-right"></i>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           FEATURED PROJECTS (WORK)
+           ==================================================================== -->
+      <section id="work" class="section projects-section">
+        <div class="container">
+          
+          <div class="section-header reveal-init">
+            <span class="section-tag">03 // Portfolio</span>
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">
+              Live web applications and machine learning platforms built with real-world functionality and tested deployments.
+            </p>
+          </div>
+
+          <!-- Filter Category Tabs -->
+          <div class="project-filters reveal-init">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="fullstack">Full Stack</button>
+            <button class="filter-btn" data-filter="ml">Machine Learning</button>
+            <button class="filter-btn" data-filter="web">Web Apps</button>
+          </div>
+
+          <div class="projects-showcase">
+
+            <!-- PROJECT 01: EDFLOW -->
+            <article class="project-row reveal-init" data-category="fullstack web">
+              <div class="project-visual">
+                <img src="./assets/images/project-1.png" alt="EdFlow Campus Management Platform" class="project-visual-img" loading="lazy">
+              </div>
+              
+              <div class="project-details">
+                <div class="project-meta-header">
+                  <span class="project-index">01 // FLAGSHIP</span>
+                  <span class="project-tag-badge">Full Stack • Education</span>
+                </div>
+
+                <h3 class="project-title">EdFlow — Smart Campus Management Platform</h3>
+                
+                <p class="project-description">
+                  A centralized cloud application engineered to streamline university and institutional workflows. Integrates student enrollment records, attendance tracking, course administration, mark entry, and administrative analytics into a clean, modern interface.
+                </p>
+
+                <div class="project-tech-stack">
+                  <span class="tech-tag">Node.js</span>
+                  <span class="tech-tag">Express</span>
+                  <span class="tech-tag">MongoDB</span>
+                  <span class="tech-tag">RESTful API</span>
+                  <span class="tech-tag">Modern UI</span>
+                </div>
+
+                <div class="project-cta-group">
+                  <a href="https://edflow-app.onrender.com/" target="_blank" rel="noopener noreferrer" class="btn-project-live">
+                    <span>Live Platform</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </a>
+                  <a href="https://github.com/somnath-sen" target="_blank" rel="noopener noreferrer" class="btn-project-code">
+                    <i class="fa-brands fa-github"></i>
+                    <span>Repository</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- PROJECT 02: DESTINIFY -->
+            <article class="project-row reversed reveal-init" data-category="ml web">
+              <div class="project-visual">
+                <img src="./assets/images/project-2.png" alt="Destinify Travel Recommendation System" class="project-visual-img" loading="lazy">
+              </div>
+              
+              <div class="project-details">
+                <div class="project-meta-header">
+                  <span class="project-index">02 // APPLIED ML</span>
+                  <span class="project-tag-badge">Machine Learning • Travel</span>
+                </div>
+
+                <h3 class="project-title">Destinify — Intelligent Travel Recommendation</h3>
+                
+                <p class="project-description">
+                  An intelligent travel discovery engine providing personalized destination recommendations. Utilizes content-based machine learning matching on user preference parameters and historical location patterns to curate optimal travel experiences.
+                </p>
+
+                <div class="project-tech-stack">
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">Machine Learning</span>
+                  <span class="tech-tag">Pandas</span>
+                  <span class="tech-tag">Flask / API</span>
+                  <span class="tech-tag">Vercel</span>
+                </div>
+
+                <div class="project-cta-group">
+                  <a href="https://destinifytours.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-project-live">
+                    <span>Live Platform</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </a>
+                  <a href="https://github.com/somnath-sen" target="_blank" rel="noopener noreferrer" class="btn-project-code">
+                    <i class="fa-brands fa-github"></i>
+                    <span>Repository</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- PROJECT 03: HOUSE PRICE PREDICTION -->
+            <article class="project-row wide-showcase reveal-init" data-category="ml">
+              <div class="project-visual">
+                <img src="./assets/images/project-3.jpg" alt="House Price Prediction Platform" class="project-visual-img" loading="lazy">
+              </div>
+              
+              <div class="project-details">
+                <div class="project-meta-header">
+                  <span class="project-index">03 // PREDICTIVE ANALYTICS</span>
+                  <span class="project-tag-badge">Supervised ML • Regression</span>
+                </div>
+
+                <h3 class="project-title">House Price Prediction Platform</h3>
+                
+                <p class="project-description">
+                  A supervised machine learning system that estimates residential market values based on key physical attributes, neighborhood data, and multi-factor regression models. Built with reproducible data cleaning pipelines and deployed with an intuitive web interface.
+                </p>
+
+                <div class="project-tech-stack">
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">Scikit-learn</span>
+                  <span class="tech-tag">Pandas</span>
+                  <span class="tech-tag">NumPy</span>
+                  <span class="tech-tag">Vercel Deployment</span>
+                </div>
+
+                <div class="project-cta-group">
+                  <a href="https://house-price-prediction-using-machine-learning.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-project-live">
+                    <span>Live Platform</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </a>
+                  <a href="https://github.com/somnath-sen" target="_blank" rel="noopener noreferrer" class="btn-project-code">
+                    <i class="fa-brands fa-github"></i>
+                    <span>Repository</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           CURRENTLY BUILDING (Authentic Projects in Progress)
+           ==================================================================== -->
+      <section id="building" class="section building-section">
+        <div class="container">
+          
+          <div class="section-header reveal-init">
+            <span class="section-tag">04 // In Progress</span>
+            <h2 class="section-title">Currently Building</h2>
+            <p class="section-subtitle">
+              Active engineering projects, architectural experiments, and open-source utilities currently on my workbench.
+            </p>
+          </div>
+
+          <div class="building-grid">
+
+            <!-- Item 1 -->
+            <div class="building-card reveal-init">
+              <div class="building-badge">
+                <span class="pulse-mini"></span>
+                <span>Active Development</span>
+              </div>
+              <h3 class="building-title">01. EdFlow v2.0</h3>
+              <p class="building-desc">
+                Architecting next-generation analytics modules for EdFlow, including automated attendance reporting, student performance trends, and role-based institutional management dashboards.
+              </p>
+              <div class="building-tech">
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">Analytics</span>
+                <span class="tech-tag">MongoDB</span>
+              </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="building-card reveal-init">
+              <div class="building-badge">
+                <span class="pulse-mini"></span>
+                <span>In Concept &amp; Code</span>
+              </div>
+              <h3 class="building-title">02. CodingMate</h3>
+              <p class="building-desc">
+                An interactive developer learning space designed to assist students and programmers with structured code reviews, syntax exploration, and algorithmic problem-solving drills.
+              </p>
+              <div class="building-tech">
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Web Tools</span>
+                <span class="tech-tag">Algorithms</span>
+              </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="building-card reveal-init">
+              <div class="building-badge">
+                <span class="pulse-mini"></span>
+                <span>Research &amp; Prototyping</span>
+              </div>
+              <h3 class="building-title">03. Applied AI/ML Systems</h3>
+              <p class="building-desc">
+                Exploring practical machine learning pipelines, evaluation benchmarks, and modern interface paradigms that bridge predictive backend models with frictionless client experiences.
+              </p>
+              <div class="building-tech">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Scikit-learn</span>
+                <span class="tech-tag">Data Pipelines</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           JOURNEY & EDUCATION TIMELINE
+           ==================================================================== -->
+      <section id="journey" class="section journey-section">
+        <div class="container">
+          
+          <div class="section-header reveal-init">
+            <span class="section-tag">05 // Milestones</span>
+            <h2 class="section-title">Education &amp; Journey</h2>
+            <p class="section-subtitle">
+              A factual timeline of academic education, certifications, and technical development.
+            </p>
+          </div>
+
+          <div class="timeline-container">
+            <div class="timeline-line"></div>
+
+            <!-- Milestone 1: MCA -->
+            <div class="timeline-item reveal-init">
+              <div class="timeline-marker"></div>
+              <div class="timeline-card">
+                <div class="timeline-date">Postgraduate Studies</div>
+                <h3 class="timeline-title">Master of Computer Applications (MCA)</h3>
+                <h4 class="timeline-subtitle">Advanced Software Systems &amp; Computing</h4>
+                <p class="timeline-text">
+                  Deepening expertise in advanced data structures, software engineering methodologies, distributed databases, cloud architecture, and modern application development.
+                </p>
+              </div>
+            </div>
+
+            <!-- Milestone 2: BSc CS -->
+            <div class="timeline-item reveal-init">
+              <div class="timeline-marker"></div>
+              <div class="timeline-card">
+                <div class="timeline-date">Undergraduate Studies</div>
+                <h3 class="timeline-title">Bachelor of Science in Computer Science (B.Sc. CS)</h3>
+                <h4 class="timeline-subtitle">Foundations of Computing &amp; Programming</h4>
+                <p class="timeline-text">
+                  Built rigorous fundamental knowledge in discrete mathematics, object-oriented programming (C++, Java), relational database management, and operating systems.
+                </p>
+              </div>
+            </div>
+
+            <!-- Milestone 3: NPTEL -->
+            <div class="timeline-item reveal-init">
+              <div class="timeline-marker"></div>
+              <div class="timeline-card">
+                <div class="timeline-date">Certification</div>
+                <h3 class="timeline-title">NPTEL Certification — Data Analytics with Python</h3>
+                <h4 class="timeline-subtitle">National Programme on Technology Enhanced Learning</h4>
+                <p class="timeline-text">
+                  Comprehensive study and practical application of exploratory data analysis, statistical methods, regression, and data wrangling using NumPy, Pandas, and Python.
+                </p>
+              </div>
+            </div>
+
+            <!-- Milestone 4: Production Projects -->
+            <div class="timeline-item reveal-init">
+              <div class="timeline-marker"></div>
+              <div class="timeline-card">
+                <div class="timeline-date">Engineering Practice</div>
+                <h3 class="timeline-title">Independent Building &amp; Cloud Deployments</h3>
+                <h4 class="timeline-subtitle">EdFlow, Destinify &amp; Predictive Applications</h4>
+                <p class="timeline-text">
+                  Architected and shipped live full-stack web applications and machine learning tools, managing production hosting on Vercel and Render with continuous code refinement.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           CONTACT SECTION
+           ==================================================================== -->
+      <section id="contact" class="section contact-section">
+        <div class="container">
+          
+          <div class="section-header reveal-init">
+            <span class="section-tag">06 // Connection</span>
+            <h2 class="section-title">Let's build something meaningful.</h2>
+            <p class="section-subtitle">
+              Have an idea, engineering opportunity, or technical project in mind? Reach out directly or send a message below.
+            </p>
+          </div>
+
+          <div class="contact-grid">
+            
+            <!-- Direct Info Channels (Left) -->
+            <div class="contact-info-col reveal-init">
+              <div class="contact-channels">
+
+                <!-- Email -->
+                <div class="contact-channel-item">
+                  <div class="channel-icon">
+                    <i class="fa-regular fa-envelope"></i>
+                  </div>
+                  <div class="channel-details">
+                    <h4>Direct Email</h4>
+                    <a href="mailto:sen126265@gmail.com">sen126265@gmail.com</a>
+                  </div>
+                </div>
+
+                <!-- LinkedIn -->
+                <div class="contact-channel-item">
+                  <div class="channel-icon">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                  </div>
+                  <div class="channel-details">
+                    <h4>LinkedIn</h4>
+                    <a href="https://www.linkedin.com/in/thesomishere/" target="_blank" rel="noopener noreferrer">in/thesomishere</a>
+                  </div>
+                </div>
+
+                <!-- GitHub -->
+                <div class="contact-channel-item">
+                  <div class="channel-icon">
+                    <i class="fa-brands fa-github"></i>
+                  </div>
+                  <div class="channel-details">
+                    <h4>GitHub</h4>
+                    <a href="https://github.com/somnath-sen" target="_blank" rel="noopener noreferrer">github.com/somnath-sen</a>
+                  </div>
+                </div>
+
+                <!-- WhatsApp -->
+                <div class="contact-channel-item">
+                  <div class="channel-icon">
+                    <i class="fa-brands fa-whatsapp"></i>
+                  </div>
+                  <div class="channel-details">
+                    <h4>WhatsApp</h4>
+                    <a href="https://wa.me/919933750793" target="_blank" rel="noopener noreferrer">+91 9933750793</a>
+                  </div>
+                </div>
+
+                <!-- Location -->
+                <div class="contact-channel-item">
+                  <div class="channel-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                  </div>
+                  <div class="channel-details">
+                    <h4>Location</h4>
+                    <p>West Bengal, India</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Preserved Google Sheets Contact Form (Right) -->
+            <div class="contact-form-col reveal-init">
+              <div class="contact-form-card">
+                <form id="contactForm" class="contact-form" novalidate>
+                  
+                  <div class="form-group-row">
+                    <div class="form-group">
+                      <label for="fullname" class="form-label">Full Name</label>
+                      <input type="text" id="fullname" name="fullname" class="form-input" placeholder="Your Name" required>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="email" class="form-label">Email Address</label>
+                      <input type="email" id="email" name="email" class="form-input" placeholder="name@example.com" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="message" class="form-label">Your Message</label>
+                    <textarea id="message" name="message" class="form-textarea" placeholder="Describe your project, proposal, or inquiry..." rows="5" required></textarea>
+                  </div>
+
+                  <button type="submit" id="submitBtn" class="form-submit-btn" disabled>
+                    <span class="btn-text">Send Message</span>
+                    <i class="fa-solid fa-paper-plane btn-icon-plane"></i>
+                    <span class="spinner"></span>
+                  </button>
+
+                </form>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ====================================================================
+         FOOTER
+         ==================================================================== -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-top">
+          
+          <div class="footer-brand">
+            <a href="#hero" class="brand-logo">
+              <span class="brand-monogram">SS</span>
+              <span class="brand-name">Somnath Sen</span>
+            </a>
+            <span class="footer-role">Software Developer • MCA</span>
+          </div>
+
+          <ul class="footer-nav">
+            <li><a href="#about" class="footer-nav-link">About</a></li>
+            <li><a href="#skills" class="footer-nav-link">Skills</a></li>
+            <li><a href="#work" class="footer-nav-link">Work</a></li>
+            <li><a href="#building" class="footer-nav-link">Building</a></li>
+            <li><a href="#journey" class="footer-nav-link">Journey</a></li>
+            <li><a href="#contact" class="footer-nav-link">Contact</a></li>
+          </ul>
+
+          <div class="footer-social-group">
+            <a href="https://github.com/somnath-sen" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/thesomishere/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+            <a href="https://www.instagram.com/thesomishere/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://wa.me/919933750793" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="WhatsApp">
+              <i class="fa-brands fa-whatsapp"></i>
             </a>
           </div>
 
         </div>
-      </div>
-    </section>
 
-    <!-- CONTACT DASHBOARD -->
-    <section id="contact" class="contact-section">
-      <div class="section-header">
-        <div class="badge-guide">
-          <span></span> Contact
-        </div>
-        <h3>Initialize <span class="gradient-text">Connection</span></h3>
-        <p>Ready to start your next project? Drop a message or connect through social channels to initialize our collaboration.</p>
-      </div>
-
-      <div class="contact-dashboard">
-        <div class="glass-panel contact-info-panel reveal">
-          <div class="info-item">
-            <div class="icon-circle"><ion-icon name="mail-outline"></ion-icon></div>
-            <div>
-              <h4>Transmission</h4>
-              <a href="mailto:sen126265@gmail.com">sen126265@gmail.com</a>
-            </div>
-          </div>
-          <div class="info-item">
-            <div class="icon-circle"><ion-icon name="location-outline"></ion-icon></div>
-            <div>
-              <h4>Base Operations</h4>
-              <p>Goaltore, Paschim Medinipur, West Bengal, India, 721128</p>
-            </div>
-          </div>
-
-          <div class="social-grid">
-            <a href="https://github.com/somnath-sen" class="social-btn"><ion-icon name="logo-github"></ion-icon></a>
-            <a href="https://www.linkedin.com/in/thesomishere/" class="social-btn"><ion-icon
-                name="logo-linkedin"></ion-icon></a>
-            <a href="https://wa.me/919933750793" class="social-btn"><ion-icon name="logo-whatsapp"></ion-icon></a>
-            <a href="https://www.instagram.com/thesomishere/" class="social-btn"><ion-icon
-                name="logo-instagram"></ion-icon></a>
-          </div>
-        </div>
-
-        <div class="glass-panel form-panel reveal">
-          <form action="#" class="terminal-form" data-form>
-            <div class="input-row">
-              <div class="input-wrapper">
-                <label>Identification (Name)</label>
-                <input type="text" name="fullname" placeholder="John Doe" required data-form-input>
-              </div>
-              <div class="input-wrapper">
-                <label>Return Address (Email)</label>
-                <input type="email" name="email" placeholder="john@example.com" required data-form-input>
-              </div>
-            </div>
-            <div class="input-wrapper">
-              <label>Payload (Message)</label>
-              <textarea name="message" rows="4" placeholder="How can we collaborate?" required
-                data-form-input></textarea>
-            </div>
-            <button type="submit" class="btn primary-btn submit-btn" disabled data-form-btn>
-              <span class="btn-text">Transmit Payload</span>
-              <ion-icon class="btn-icon btn-icon-send" name="paper-plane-outline"></ion-icon>
-              <ion-icon class="btn-icon btn-icon-loading" name="sync-outline"></ion-icon>
-            </button>
-          </form>
+        <div class="footer-bottom">
+          <p>© 2026 Somnath Sen. Built with clean engineering and authentic craftsmanship.</p>
+          <p>Goaltore, Paschim Medinipur, West Bengal, India</p>
         </div>
       </div>
-    </section>
-
-  </main>
-
-  <!-- Glass Footer -->
-  <footer class="glass-footer">
-    
-    <!-- Water Flow Animation -->
-    <svg class="editorial-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-    viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-      <defs>
-        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-      </defs>
-      <g class="parallax">
-        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(99, 102, 241, 0.4)" />
-        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(236, 72, 153, 0.3)" />
-        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(6, 182, 212, 0.2)" />
-        <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--panel-border)" />
-      </g>
-    </svg>
-
-    <div class="footer-content container">
-      <div class="footer-links">
-        <button class="modal-trigger" data-target="#terms-modal">Terms and Conditions</button>
-        <button class="modal-trigger" data-target="#policy-modal">Policy</button>
-      </div>
-      
-      <div class="footer-attr-panel reveal">
-          <p>
-              Designed & Developed by 
-              <span class="heart-icon"><i class="fa-solid fa-heart"></i></span> 
-              <a href="https://github.com/somnath-sen" target="_blank" class="creator-link">Somnath Sen</a>
-          </p>
-      </div>
-
-      <div class="footer-copyright">
-        Copyright © 2026 Somnath Sen. All rights reserved.
-      </div>
-    </div> </div>
-  </footer>
-
-  <!-- MacOS Styled Modals -->
-  <div class="mac-modal-overlay" id="terms-modal">
-    <div class="mac-modal">
-      <div class="mac-header">
-        <div class="mac-traffic-lights">
-          <button class="mac-btn close-btn modal-close"></button>
-          <button class="mac-btn min-btn"></button>
-          <button class="mac-btn max-btn"></button>
-        </div>
-        <div class="mac-title">Terms & Conditions.txt</div>
-      </div>
-      <div class="mac-body">
-        <h2>Terms and Conditions</h2>
-        <p>Welcome to my professional portfolio. By accessing this platform, you agree to these terms.</p>
-        <br>
-        <h3>1. Intellectual Property</h3>
-        <p>The design, structure, and original assets (excluding third-party libraries) are intellectually owned by
-          Somnath Sen. You may not duplicate or resell this theme without permission.</p>
-        <br>
-        <h3>2. Communications</h3>
-        <p>When you transmit a payload (send a message) through the contact dashboard, you authorize me to reply to your
-          provided email address regarding professional inquiries.</p>
-      </div>
-    </div>
+    </footer>
   </div>
 
-  <div class="mac-modal-overlay" id="policy-modal">
-    <div class="mac-modal">
-      <div class="mac-header">
-        <div class="mac-traffic-lights">
-          <button class="mac-btn close-btn modal-close"></button>
-          <button class="mac-btn min-btn"></button>
-          <button class="mac-btn max-btn"></button>
-        </div>
-        <div class="mac-title">Privacy_Policy.txt</div>
-      </div>
-      <div class="mac-body">
-        <h2>Privacy Policy</h2>
-        <p>Your privacy is respected while navigating this digital environment.</p>
-        <br>
-        <h3>1. Data Collection</h3>
-        <p>The only data actively collected is the information you consentingly provide through the contact transmission
-          form (Name, Email, Message).</p>
-        <br>
-        <h3>2. Data Storage</h3>
-        <p>Payloads are transmitted securely to a private, encrypted Google Sheets database utilized solely for reading
-          communication and not sold to third-party brokers.</p>
-      </div>
-    </div>
+  <!-- Global Toast Notice -->
+  <div class="toast-notice" id="toastNotice" role="status" aria-live="polite">
+    <i class="fa-regular fa-circle-check toast-icon" id="toastIcon"></i>
+    <span class="toast-text" id="toastMessage">Message sent successfully!</span>
   </div>
 
-  <!-- Notification Toast -->
-  <div class="toast-notification" data-toast>
-    <div class="toast-icon-box"><ion-icon name="checkmark-circle-outline" data-toast-icon></ion-icon></div>
-    <p data-toast-message>Transmission successful!</p>
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <!-- JavaScript Modules -->
   <script src="./assets/js/script.js"></script>
-
 </body>
 
 </html>

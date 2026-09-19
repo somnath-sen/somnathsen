@@ -1,301 +1,355 @@
+/**
+ * ============================================================================
+ * SOMNATH SEN — PORTFOLIO INTERACTION ENGINE (2026 EDITION)
+ * Clean, lightweight, performance-first Vanilla JavaScript
+ * ============================================================================
+ */
+
 'use strict';
 
-let ytPlayer;
-let ytAPIReady = false;
+document.addEventListener('DOMContentLoaded', () => {
 
-// 1. YouTube API Ready Callback
-window.onYouTubeIframeAPIReady = function() {
-  ytAPIReady = true;
-  // Trigger a custom event in case we already revealed the section
-  window.dispatchEvent(new Event('yt-api-ready'));
-};
+  /* --------------------------------------------------------------------------
+     01. THEME CONTROLLER (Dark / Light Mode)
+     -------------------------------------------------------------------------- */
+  const themeToggleBtn = document.getElementById('themeToggleBtn');
+  const htmlRoot = document.documentElement;
 
-// 2. Load the YouTube IFrame API asynchronously
-const ytTag = document.createElement('script');
-ytTag.src = "https://www.youtube.com/iframe_api";
-const firstTag = document.getElementsByTagName('script')[0];
-firstTag.parentNode.insertBefore(ytTag, firstTag);
+  // Detect stored theme or system preference
+  const getInitialTheme = () => {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      return storedTheme;
+    }
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  };
 
-// Preloader
-const preloader = document.querySelector("[data-preloader]");
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    preloader.classList.add("loaded");
-  }, 1000);
-});
+  const applyTheme = (theme) => {
+    htmlRoot.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  };
 
-// Theme toggle
-const themeBtn = document.querySelector("[data-theme-btn]");
-const HTML = document.documentElement;
-let isDark = localStorage.getItem("theme") !== "light";
+  // Set initial theme
+  applyTheme(getInitialTheme());
 
-if (!isDark) HTML.setAttribute("data-theme", "light");
-
-if (themeBtn) {
-  themeBtn.addEventListener("click", () => {
-    isDark = !isDark;
-    const theme = isDark ? "dark" : "light";
-    HTML.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  });
-}
-
-// Typewriter Effect
-const typeTextSpan = document.querySelector(".type-text");
-const textArray = ["Web Applications", "Digital Experiences", "SaaS Platforms", "Modern Interfaces"];
-let textArrayIndex = 0;
-let charIndex = 0;
-
-function type() {
-  if (charIndex < textArray[textArrayIndex].length) {
-    typeTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
-    charIndex++;
-    setTimeout(type, 100);
-  } else {
-    setTimeout(erase, 2000);
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const currentTheme = htmlRoot.getAttribute('data-theme') || 'dark';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      applyTheme(newTheme);
+    });
   }
-}
 
-function erase() {
-  if (charIndex > 0) {
-    typeTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex-1);
-    charIndex--;
-    setTimeout(erase, 50);
-  } else {
-    textArrayIndex++;
-    if(textArrayIndex >= textArray.length) textArrayIndex = 0;
-    setTimeout(type, 500);
-  }
-}
-
-if(typeTextSpan) {
-  setTimeout(type, 1500);
-}
-
-// VanillaTilt Init
-// Glare and max values are largely overwritten by data-attributes in HTML
-if (typeof VanillaTilt !== 'undefined') {
-  VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-    max: 5,
-    speed: 400,
-    glare: true,
-    "max-glare": 0.2,
-  });
-}
-
-// Scroll Reveal with Intersection Observer
-const revealElements = document.querySelectorAll('.reveal');
-const revealObserver = new IntersectionObserver((entries, observer) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('active');
-      
-      // Check for YouTube IFrame API Player
-      const playerDiv = entry.target.querySelector('#youtube-player');
-      if (playerDiv) {
-        const initPlayer = () => {
-          if (ytPlayer || !ytAPIReady) return;
-          const videoId = playerDiv.getAttribute('data-video-id');
-          
-          ytPlayer = new YT.Player('youtube-player', {
-            width: '100%',
-            height: '100%',
-            videoId: videoId,
-            playerVars: {
-              'autoplay': 1,
-              'mute': 1,
-              'controls': 0,
-              'modestbranding': 1,
-              'rel': 0,
-              'showinfo': 0,
-              'loop': 1,
-              'playlist': videoId,
-              'enablejsapi': 1,
-              'widget_referrer': window.location.href
-            },
-            events: {
-              'onReady': (event) => {
-                event.target.mute();
-                event.target.playVideo();
-                event.target.setVolume(70);
-                
-                // Pulsing unmute button to encourage interaction
-                const unmuteBtn = document.getElementById('video-unmute-btn');
-                if (unmuteBtn) unmuteBtn.classList.add('pulsing');
-              },
-              'onStateChange': (event) => {
-                if (event.data === YT.PlayerState.ENDED) {
-                  event.target.playVideo();
-                }
-              }
-            }
-          });
-        };
-
-        // Global interaction listener to unmute on first user click
-        window.addEventListener('click', () => {
-          if (ytPlayer && ytPlayer.unMute) {
-            ytPlayer.unMute();
-            ytPlayer.setVolume(70);
-            const icon = document.getElementById('volume-icon');
-            if (icon) icon.setAttribute('name', 'volume-high-outline');
-            const btn = document.getElementById('video-unmute-btn');
-            if (btn) btn.classList.remove('pulsing');
-          }
-        }, { once: true });
-
-        // Direct button listener
-        document.getElementById('video-unmute-btn')?.addEventListener('click', (e) => {
-          e.stopPropagation(); // Don't trigger window click
-          if (ytPlayer && ytPlayer.unMute) {
-             const isMuted = ytPlayer.isMuted();
-             if (isMuted) {
-               ytPlayer.unMute();
-               ytPlayer.setVolume(70);
-               document.getElementById('volume-icon')?.setAttribute('name', 'volume-high-outline');
-               document.getElementById('video-unmute-btn')?.classList.remove('pulsing');
-             } else {
-               ytPlayer.mute();
-               document.getElementById('volume-icon')?.setAttribute('name', 'volume-mute-outline');
-             }
-          }
-        });
-
-        if (ytAPIReady) {
-          initPlayer();
-        } else {
-          window.addEventListener('yt-api-ready', initPlayer, { once: true });
-        }
-      }
-
-      observer.unobserve(entry.target);
+  // Listen to OS system theme changes if user hasn't explicitly set one
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+      applyTheme(e.matches ? 'dark' : 'light');
     }
   });
-}, { threshold: 0.1 });
 
-revealElements.forEach(el => revealObserver.observe(el));
 
-// Form Logic (Google Sheet Integration)
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwqlceRfUBkQ2nGONkOmUSEz0HfzoxQTpN_Occi6jpt7HnQUHIa53CpXGKHIoyv0lihMA/exec';
+  /* --------------------------------------------------------------------------
+     02. SCROLL PROGRESS INDICATOR
+     -------------------------------------------------------------------------- */
+  const scrollProgress = document.getElementById('scrollProgress');
 
-const form = document.querySelector("[data-form]");
-const formInputs = document.querySelectorAll("[data-form-input]");
-const formBtn = document.querySelector("[data-form-btn]");
-const toast = document.querySelector("[data-toast]");
-const toastMessage = document.querySelector("[data-toast-message]");
-const toastIcon = document.querySelector("[data-toast-icon]");
+  const updateScrollProgress = () => {
+    if (!scrollProgress) return;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    scrollProgress.style.width = `${scrollPercent}%`;
+  };
 
-if (form && formInputs.length > 0 && formBtn) {
-  formInputs.forEach(input => {
-    input.addEventListener("input", () => {
-      if (form.checkValidity()) {
-        formBtn.removeAttribute("disabled");
-      } else {
-        formBtn.setAttribute("disabled", "");
+  window.addEventListener('scroll', updateScrollProgress, { passive: true });
+
+
+  /* --------------------------------------------------------------------------
+     03. NAVBAR SCROLL EFFECT & MOBILE DRAWER
+     -------------------------------------------------------------------------- */
+  const mainNavbar = document.getElementById('mainNavbar');
+  const mobileToggleBtn = document.getElementById('mobileToggleBtn');
+  const menuIcon = document.getElementById('menuIcon');
+  const mobileNavDrawer = document.getElementById('mobileNavDrawer');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+  const handleNavbarScroll = () => {
+    if (!mainNavbar) return;
+    if (window.scrollY > 40) {
+      mainNavbar.classList.add('scrolled');
+    } else {
+      mainNavbar.classList.remove('scrolled');
+    }
+  };
+
+  window.addEventListener('scroll', handleNavbarScroll, { passive: true });
+  handleNavbarScroll();
+
+  // Mobile Menu Toggle
+  if (mobileToggleBtn && mobileNavDrawer) {
+    mobileToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = mobileNavDrawer.classList.toggle('open');
+      if (menuIcon) {
+        menuIcon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
       }
+    });
+
+    // Close on navigation link click
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNavDrawer.classList.remove('open');
+        if (menuIcon) menuIcon.className = 'fa-solid fa-bars';
+      });
+    });
+
+    // Close when clicking outside drawer
+    document.addEventListener('click', (e) => {
+      if (!mobileNavDrawer.contains(e.target) && !mobileToggleBtn.contains(e.target)) {
+        mobileNavDrawer.classList.remove('open');
+        if (menuIcon) menuIcon.className = 'fa-solid fa-bars';
+      }
+    });
+  }
+
+
+  /* --------------------------------------------------------------------------
+     04. ACTIVE NAVIGATION LINK HIGHLIGHTER
+     -------------------------------------------------------------------------- */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const highlightNavOnScroll = () => {
+    const scrollY = window.pageYOffset;
+
+    sections.forEach(current => {
+      const sectionHeight = current.offsetHeight;
+      const sectionTop = current.offsetTop - 120;
+      const sectionId = current.getAttribute('id');
+
+      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${sectionId}`) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  };
+
+  window.addEventListener('scroll', highlightNavOnScroll, { passive: true });
+
+
+  /* --------------------------------------------------------------------------
+     05. SCROLL REVEAL (IntersectionObserver)
+     -------------------------------------------------------------------------- */
+  const revealElements = document.querySelectorAll('.reveal-init');
+
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '0px 0px -60px 0px',
+      threshold: 0.1
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+  } else {
+    // Fallback if IntersectionObserver is unavailable
+    revealElements.forEach(el => el.classList.add('revealed'));
+  }
+
+
+  /* --------------------------------------------------------------------------
+     06. PROJECT CATEGORY FILTERING
+     -------------------------------------------------------------------------- */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectRows = document.querySelectorAll('.project-row');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Toggle active filter button
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filterValue = btn.getAttribute('data-filter');
+
+      projectRows.forEach(row => {
+        const categories = (row.getAttribute('data-category') || '').split(' ');
+        
+        if (filterValue === 'all' || categories.includes(filterValue)) {
+          row.style.opacity = '0';
+          row.style.display = 'grid';
+          setTimeout(() => {
+            row.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            row.style.opacity = '1';
+          }, 20);
+        } else {
+          row.style.opacity = '0';
+          setTimeout(() => {
+            row.style.display = 'none';
+          }, 300);
+        }
+      });
     });
   });
 
-  form.addEventListener('submit', e => {
-    e.preventDefault();
 
-    const btnText = formBtn.querySelector('.btn-text');
-    const originalText = btnText.textContent;
-    
-    // Trigger CSS Transaction Animation
-    formBtn.classList.add('is-sending');
-    btnText.textContent = "Transmitting...";
-    formBtn.setAttribute("disabled", "");
+  /* --------------------------------------------------------------------------
+     07. MINIMAL CUSTOM CURSOR (Desktop Only)
+     -------------------------------------------------------------------------- */
+  const cursorDot = document.getElementById('cursorDot');
+  const cursorRing = document.getElementById('cursorRing');
+  const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
 
-    fetch(scriptURL, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: new URLSearchParams(new FormData(form))
-    })
-      .then(response => {
-        toastMessage.textContent = "Transmission successful!";
-        toastIcon.setAttribute("name", "checkmark-circle-outline");
-        toastIcon.style.color = "#10b981";
-        toast.classList.add("active");
+  if (!isTouchDevice && cursorDot && cursorRing) {
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+    let isMoving = false;
 
-        form.reset();
-        
-        // Reset transaction animation
-        formBtn.classList.remove('is-sending');
-        btnText.textContent = originalText;
-        formBtn.setAttribute("disabled", ""); 
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
 
-        setTimeout(() => toast.classList.remove("active"), 5000);
-      })
-      .catch(error => {
-        toastMessage.textContent = "Error transmitting payload.";
-        toastIcon.setAttribute("name", "close-circle-outline");
-        toastIcon.style.color = "#ef4444";
-        toast.classList.add("active");
-
-        formBtn.classList.remove('is-sending');
-        btnText.textContent = originalText;
-        formBtn.removeAttribute("disabled");
-
-        setTimeout(() => toast.classList.remove("active"), 5000);
-      });
-  });
-}
-
-// macOS Modal Logic
-const modalTriggers = document.querySelectorAll('.modal-trigger');
-const closeBtns = document.querySelectorAll('.modal-close');
-
-modalTriggers.forEach(trigger => {
-  trigger.addEventListener('click', () => {
-    const targetId = trigger.getAttribute('data-target');
-    const modal = document.querySelector(targetId);
-    if(modal) modal.classList.add('active');
-  });
-});
-
-closeBtns.forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    e.target.closest('.mac-modal-overlay').classList.remove('active');
-  });
-});
-
-window.addEventListener('click', (e) => {
-  if (e.target.classList.contains('mac-modal-overlay')) {
-    e.target.classList.remove('active');
-  }
-});
-
-// Testimonial Card Shuffle Logic
-const tCards = Array.from(document.querySelectorAll('.t-card'));
-const stack = document.getElementById('testimonial-stack');
-
-if (tCards.length && stack) {
-  // Initialize default positions
-  tCards.forEach((card, index) => {
-    card.classList.add(`pos-${index}`);
-  });
-
-  stack.addEventListener('click', () => {
-    // Find current cards by their position classes
-    const topCard = tCards.find(card => card.classList.contains('pos-0'));
-    const midCard = tCards.find(card => card.classList.contains('pos-1'));
-    const bottomCard = tCards.find(card => card.classList.contains('pos-2'));
-
-    // 1. Animate top card out
-    if(topCard) topCard.classList.add('shuffle-out');
-
-    // 2. Shift others up
-    if(midCard) { midCard.classList.remove('pos-1'); midCard.classList.add('pos-0'); }
-    if(bottomCard) { bottomCard.classList.remove('pos-2'); bottomCard.classList.add('pos-1'); }
-
-    // 3. After animation completes, place old top card at the bottom of the stack
-    setTimeout(() => {
-      if(topCard) {
-        topCard.classList.remove('pos-0');
-        topCard.classList.remove('shuffle-out');
-        topCard.classList.add('pos-2');
+      cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+      if (!isMoving) {
+        cursorDot.style.opacity = '1';
+        cursorRing.style.opacity = '1';
+        isMoving = true;
       }
-    }, 400); 
-  });
-}
+    });
+
+    // Smooth cursor follower animation loop
+    const animateCursor = () => {
+      ringX += (mouseX - ringX) * 0.18;
+      ringY += (mouseY - ringY) * 0.18;
+
+      cursorRing.style.transform = `translate(${ringX}px, ${ringY}px)`;
+      requestAnimationFrame(animateCursor);
+    };
+    requestAnimationFrame(animateCursor);
+
+    // Expand cursor ring on interactive elements
+    const interactiveSelectors = 'a, button, input, textarea, .project-row, .skill-card, .building-card, .timeline-card';
+    const interactiveElements = document.querySelectorAll(interactiveSelectors);
+
+    const addHover = () => document.body.classList.add('cursor-hover');
+    const removeHover = () => document.body.classList.remove('cursor-hover');
+
+    interactiveElements.forEach(el => {
+      el.addEventListener('mouseenter', addHover);
+      el.addEventListener('mouseleave', removeHover);
+    });
+
+    // Handle dynamically added or modified elements
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(interactiveSelectors)) {
+        document.body.classList.add('cursor-hover');
+      } else {
+        document.body.classList.remove('cursor-hover');
+      }
+    });
+
+    window.addEventListener('mouseout', () => {
+      cursorDot.style.opacity = '0';
+      cursorRing.style.opacity = '0';
+      isMoving = false;
+    });
+  }
+
+
+  /* --------------------------------------------------------------------------
+     08. PRESERVED GOOGLE SHEETS CONTACT FORM INTEGRATION
+     -------------------------------------------------------------------------- */
+  const contactForm = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const toastNotice = document.getElementById('toastNotice');
+  const toastMessage = document.getElementById('toastMessage');
+  const toastIcon = document.getElementById('toastIcon');
+
+  // Exact Google Apps Script deployment URL from repository
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwqlceRfUBkQ2nGONkOmUSEz0HfzoxQTpN_Occi6jpt7HnQUHIa53CpXGKHIoyv0lihMA/exec';
+
+  const showToast = (message, isSuccess = true) => {
+    if (!toastNotice) return;
+    
+    toastMessage.textContent = message;
+    if (isSuccess) {
+      toastIcon.className = 'fa-regular fa-circle-check toast-icon';
+      toastIcon.style.color = 'var(--accent-emerald)';
+    } else {
+      toastIcon.className = 'fa-regular fa-circle-xmark toast-icon';
+      toastIcon.style.color = '#EF4444';
+    }
+
+    toastNotice.classList.add('visible');
+    setTimeout(() => {
+      toastNotice.classList.remove('visible');
+    }, 5000);
+  };
+
+  if (contactForm && submitBtn) {
+    const inputs = contactForm.querySelectorAll('input, textarea');
+
+    // Real-time input validation to enable submit button
+    const validateForm = () => {
+      const isValid = contactForm.checkValidity();
+      if (isValid) {
+        submitBtn.removeAttribute('disabled');
+      } else {
+        submitBtn.setAttribute('disabled', '');
+      }
+    };
+
+    inputs.forEach(input => {
+      input.addEventListener('input', validateForm);
+    });
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      if (!contactForm.checkValidity()) {
+        showToast('Please fill in all required fields correctly.', false);
+        return;
+      }
+
+      const btnText = submitBtn.querySelector('.btn-text');
+      const originalText = btnText ? btnText.textContent : 'Send Message';
+
+      // Set Sending State
+      submitBtn.classList.add('sending');
+      if (btnText) btnText.textContent = 'Sending Message...';
+      submitBtn.setAttribute('disabled', '');
+
+      // Execute POST request to Google Apps Script
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams(new FormData(contactForm))
+      })
+      .then(() => {
+        showToast('Thank you! Your message has been sent successfully.', true);
+        contactForm.reset();
+        submitBtn.classList.remove('sending');
+        if (btnText) btnText.textContent = originalText;
+        submitBtn.setAttribute('disabled', '');
+      })
+      .catch((error) => {
+        console.error('Contact Form Submission Error:', error);
+        showToast('Unable to send message right now. Please email directly.', false);
+        submitBtn.classList.remove('sending');
+        if (btnText) btnText.textContent = originalText;
+        submitBtn.removeAttribute('disabled');
+      });
+    });
+  }
+
+});
