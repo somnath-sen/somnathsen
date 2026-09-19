@@ -44,6 +44,96 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   /* --------------------------------------------------------------------------
+     00. CINEMATIC BIOGRAPHY LOADING CONTROLLER
+     -------------------------------------------------------------------------- */
+  const biographyLoader = document.getElementById('biographyLoader');
+  const loaderProgressFill = document.getElementById('loaderProgressFill');
+  const loaderPercent = document.getElementById('loaderPercent');
+  const loaderStatusText = document.getElementById('loaderStatusText');
+  const loaderSkipBtn = document.getElementById('loaderSkipBtn');
+
+  if (biographyLoader && loaderProgressFill && loaderPercent && loaderStatusText) {
+    let progress = 0;
+    let isLoaderDismissed = false;
+
+    const statusMilestones = [
+      { threshold: 15, text: "Typesetting preface & archives..." },
+      { threshold: 38, text: "Compiling software repositories & systems..." },
+      { threshold: 64, text: "Structuring data analytics pipelines..." },
+      { threshold: 86, text: "Binding edition 2026 hardcover..." },
+      { threshold: 98, text: "Opening the chronicle..." }
+    ];
+
+    const dismissLoader = () => {
+      if (isLoaderDismissed) return;
+      isLoaderDismissed = true;
+      progress = 100;
+      loaderProgressFill.style.width = '100%';
+      loaderPercent.textContent = '100%';
+      loaderStatusText.textContent = 'Welcome to the chronicle.';
+
+      setTimeout(() => {
+        biographyLoader.classList.add('loaded');
+        setTimeout(() => {
+          biographyLoader.setAttribute('aria-hidden', 'true');
+          biographyLoader.style.display = 'none';
+        }, 900);
+      }, 350);
+    };
+
+    // Smooth progress simulation
+    const progressInterval = setInterval(() => {
+      if (isLoaderDismissed) {
+        clearInterval(progressInterval);
+        return;
+      }
+
+      const step = Math.floor(Math.random() * 6) + 3; // +3% to +8%
+      progress = Math.min(progress + step, 96);
+
+      loaderProgressFill.style.width = `${progress}%`;
+      loaderPercent.textContent = `${progress}%`;
+
+      // Update literary status text with subtle fade
+      for (let i = statusMilestones.length - 1; i >= 0; i--) {
+        if (progress >= statusMilestones[i].threshold) {
+          if (loaderStatusText.textContent !== statusMilestones[i].text) {
+            loaderStatusText.style.opacity = '0';
+            setTimeout(() => {
+              loaderStatusText.textContent = statusMilestones[i].text;
+              loaderStatusText.style.opacity = '1';
+            }, 120);
+          }
+          break;
+        }
+      }
+    }, 70);
+
+    // Complete on load with minimum cinematic display duration (~1.3s)
+    const minTimePromise = new Promise(resolve => setTimeout(resolve, 1300));
+    const loadPromise = new Promise(resolve => {
+      if (document.readyState === 'complete') {
+        resolve();
+      } else {
+        window.addEventListener('load', resolve, { once: true });
+      }
+    });
+
+    Promise.all([minTimePromise, loadPromise]).then(() => {
+      clearInterval(progressInterval);
+      dismissLoader();
+    });
+
+    // Skip button for immediate entry
+    if (loaderSkipBtn) {
+      loaderSkipBtn.addEventListener('click', () => {
+        clearInterval(progressInterval);
+        dismissLoader();
+      });
+    }
+  }
+
+  /* --------------------------------------------------------------------------
      01. Z-INDEX & SHEET STACKING MANAGER
      -------------------------------------------------------------------------- */
   const updateSheetStacking = () => {

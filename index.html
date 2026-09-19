@@ -45,6 +45,71 @@
 
 <body>
 
+  <!-- Cinematic Biography Loading Screen -->
+  <div class="biography-loader" id="biographyLoader" role="dialog" aria-modal="true" aria-label="Loading Biography Book">
+    <div class="loader-bg-ambient"></div>
+    <div class="loader-vignette-frame"></div>
+    
+    <!-- Floating Gold Dust Particles -->
+    <div class="loader-particles" aria-hidden="true">
+      <span class="particle p1"></span>
+      <span class="particle p2"></span>
+      <span class="particle p3"></span>
+      <span class="particle p4"></span>
+      <span class="particle p5"></span>
+      <span class="particle p6"></span>
+      <span class="particle p7"></span>
+      <span class="particle p8"></span>
+    </div>
+
+    <div class="loader-card">
+      <!-- Decorative Monogram Gilded Seal -->
+      <div class="loader-emblem">
+        <div class="emblem-ring ring-outer"></div>
+        <div class="emblem-ring ring-inner"></div>
+        <span class="emblem-monogram">SS</span>
+      </div>
+
+      <!-- 3D Mini Flipping Book Animation -->
+      <div class="loader-mini-book" aria-hidden="true">
+        <div class="mini-book-spine"></div>
+        <div class="mini-book-cover mini-cover-left"></div>
+        <div class="mini-book-page mini-page-3"></div>
+        <div class="mini-book-page mini-page-2"></div>
+        <div class="mini-book-page mini-page-1"></div>
+        <div class="mini-book-cover mini-cover-right"></div>
+      </div>
+
+      <!-- Editorial Titles -->
+      <div class="loader-header">
+        <span class="loader-tag"><i class="fa-solid fa-feather-pointed"></i> ARCHIVES OF SOMNATH SEN • EDITION 2026</span>
+        <h1 class="loader-title">THE DIGITAL BIOGRAPHY</h1>
+        <p class="loader-subtitle">Software Developer &bull; Data Analyst &bull; Builder</p>
+      </div>
+
+      <!-- Dynamic Literary Status -->
+      <div class="loader-status-wrap">
+        <div class="status-pulse-dot"></div>
+        <p class="loader-status-text" id="loaderStatusText">Binding biography chapters...</p>
+      </div>
+
+      <!-- Luxury Progress Meter -->
+      <div class="loader-progress-container">
+        <span class="progress-vol">VOL. I</span>
+        <div class="loader-progress-track">
+          <div class="loader-progress-fill" id="loaderProgressFill"></div>
+        </div>
+        <span class="loader-percent" id="loaderPercent">0%</span>
+      </div>
+
+      <!-- Quick Skip Button -->
+      <button class="loader-skip-btn" id="loaderSkipBtn" type="button" aria-label="Skip loading intro to book">
+        <span>Enter Book</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
   <!-- Studio Desk Environment -->
   <div class="studio-desk">
     <div class="desk-grain"></div>
