@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(animateCursor);
 
     // Expand cursor ring on interactive elements
-    const interactiveSelectors = 'a, button, input, textarea, .project-row, .skill-card, .building-card, .timeline-card';
+    const interactiveSelectors = 'a, button, input, textarea, .project-row, .skill-card, .building-card, .timeline-card, .toolkit-card, .pipeline-node, .workflow-card, .capability-badge';
     const interactiveElements = document.querySelectorAll(interactiveSelectors);
 
     const addHover = () => document.body.classList.add('cursor-hover');

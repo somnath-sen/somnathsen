@@ -1,5 +1,6 @@
 /* ==========================================================================
    SOMNATH SEN — PORTFOLIO DESIGN SYSTEM (2026 EDITION)
+   Software Developer & Data Analyst
    Editorial Swiss Typography + Modern Linear/Vercel Dark Aesthetic
    ========================================================================== */
 
@@ -31,6 +32,7 @@
   --accent-indigo: #6366F1;
   --accent-cyan: #06B6D4;
   --accent-emerald: #10B981;
+  --accent-amber: #F59E0B;
   --accent-gradient: linear-gradient(135deg, #7C3AED 0%, #6366F1 50%, #06B6D4 100%);
   --accent-glow: rgba(99, 102, 241, 0.25);
 
@@ -138,7 +140,6 @@ img {
   height: auto;
 }
 
-/* Accessible focus visible */
 :focus-visible {
   outline: 2px solid var(--accent-indigo);
   outline-offset: 3px;
@@ -148,7 +149,6 @@ img {
 /* --------------------------------------------------------------------------
    03. Ambient Layers & Background Aesthetics
    -------------------------------------------------------------------------- */
-/* Subtle radial background glow */
 .ambient-glow {
   position: fixed;
   top: 0;
@@ -167,7 +167,6 @@ img {
   background: radial-gradient(circle, rgba(99, 102, 241, 0.06) 0%, rgba(6, 182, 212, 0.03) 40%, transparent 70%);
 }
 
-/* Subtle Film Grain */
 .noise-overlay {
   position: fixed;
   inset: 0;
@@ -177,7 +176,6 @@ img {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Top Scroll Progress Bar */
 .scroll-progress {
   position: fixed;
   top: 0;
@@ -256,9 +254,9 @@ body.cursor-hover .cursor-dot {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1.25rem;
   width: 100%;
-  max-width: 960px;
+  max-width: 1040px;
   height: 56px;
   padding: 0 1.25rem;
   background: var(--bg-card);
@@ -307,14 +305,14 @@ body.cursor-hover .cursor-dot {
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
   list-style: none;
 }
 
 .nav-link {
   display: inline-block;
-  padding: 0.4rem 0.85rem;
-  font-size: 0.875rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
   font-weight: 500;
   color: var(--text-secondary);
   border-radius: var(--radius-full);
@@ -400,7 +398,6 @@ body.cursor-hover .cursor-dot {
   font-size: 1.2rem;
 }
 
-/* Mobile Drawer */
 .mobile-nav-drawer {
   position: fixed;
   top: calc(1.25rem + 64px);
@@ -468,7 +465,6 @@ body.cursor-hover .cursor-dot {
   position: relative;
 }
 
-/* Section Header (Editorial Swiss Style) */
 .section-header {
   margin-bottom: 3.5rem;
 }
@@ -507,7 +503,7 @@ body.cursor-hover .cursor-dot {
 .section-subtitle {
   font-size: 1.1rem;
   color: var(--text-secondary);
-  max-width: 620px;
+  max-width: 680px;
   margin-top: 0.85rem;
   line-height: 1.6;
 }
@@ -532,7 +528,7 @@ body.cursor-hover .cursor-dot {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.2fr 0.9fr;
+  grid-template-columns: 1.25fr 0.85fr;
   gap: 4rem;
   align-items: center;
 }
@@ -541,15 +537,16 @@ body.cursor-hover .cursor-dot {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.4rem 0.95rem;
+  padding: 0.45rem 1.05rem;
   border-radius: var(--radius-full);
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-secondary);
   margin-bottom: 1.75rem;
+  letter-spacing: 0.04em;
 }
 
 .status-dot {
@@ -576,9 +573,9 @@ body.cursor-hover .cursor-dot {
 
 .hero-headline {
   font-family: var(--font-display);
-  font-size: clamp(2.8rem, 5.8vw, 4.8rem);
+  font-size: clamp(2.7rem, 5.4vw, 4.4rem);
   font-weight: 700;
-  line-height: 1.06;
+  line-height: 1.08;
   letter-spacing: -0.04em;
   color: var(--text-primary);
   margin-bottom: 1.5rem;
@@ -588,8 +585,8 @@ body.cursor-hover .cursor-dot {
   font-size: 1.15rem;
   line-height: 1.7;
   color: var(--text-secondary);
-  max-width: 560px;
-  margin-bottom: 2.25rem;
+  max-width: 580px;
+  margin-bottom: 2rem;
 }
 
 .hero-bio strong {
@@ -602,6 +599,49 @@ body.cursor-hover .cursor-dot {
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
+}
+
+/* Subtle Hero Ethos Ticker */
+.hero-ethos-line {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 2rem;
+  padding: 0.65rem 1.15rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-pill);
+  border: 1px solid var(--border-subtle);
+  width: fit-content;
+}
+
+.ethos-keywords {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ethos-dot {
+  color: var(--accent-indigo);
+  font-size: 0.75rem;
+}
+
+.ethos-divider {
+  width: 1px;
+  height: 14px;
+  background: var(--border-medium);
+}
+
+.ethos-subtext {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-cyan);
+  font-weight: 600;
+  letter-spacing: 0.08em;
 }
 
 /* Primary, Secondary, and Icon Buttons */
@@ -716,7 +756,6 @@ body.cursor-hover .cursor-dot {
   pointer-events: none;
 }
 
-/* Technical Metadata Badges around Portrait */
 .meta-tag-card {
   position: absolute;
   background: var(--bg-card);
@@ -724,11 +763,11 @@ body.cursor-hover .cursor-dot {
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  padding: 0.6rem 0.9rem;
+  padding: 0.65rem 0.95rem;
   box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.2rem;
   pointer-events: auto;
   transition: transform var(--transition-fast), border-color var(--transition-fast);
 }
@@ -740,17 +779,17 @@ body.cursor-hover .cursor-dot {
 
 .meta-tag-top-left {
   top: 6%;
-  left: -5%;
+  left: -8%;
 }
 
 .meta-tag-bottom-right {
   bottom: 8%;
-  right: -5%;
+  right: -8%;
 }
 
 .meta-tag-label {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-muted);
@@ -762,7 +801,7 @@ body.cursor-hover .cursor-dot {
   color: var(--text-primary);
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -827,8 +866,40 @@ body.cursor-hover .cursor-dot {
 }
 
 /* --------------------------------------------------------------------------
-   09. Skills Section
+   09. Skills Section (Two Disciplines: Development & Analytics)
    -------------------------------------------------------------------------- */
+.skills-discipline-group {
+  margin-bottom: 3.5rem;
+}
+
+.skills-discipline-group:last-child {
+  margin-bottom: 0;
+}
+
+.discipline-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.discipline-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.discipline-line {
+  flex-grow: 1;
+  height: 1px;
+  background: var(--border-subtle);
+}
+
 .skills-categories-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -867,6 +938,10 @@ body.cursor-hover .cursor-dot {
   border: 1px solid var(--border-subtle);
   color: var(--accent-indigo);
   font-size: 1.1rem;
+}
+
+.skill-category-icon.analytics-icon {
+  color: var(--accent-cyan);
 }
 
 .skill-category-title {
@@ -908,8 +983,275 @@ body.cursor-hover .cursor-dot {
   color: var(--accent-indigo);
 }
 
+.tech-pill.analytics-pill i {
+  color: var(--accent-cyan);
+}
+
+/* Core Analytical Capabilities Bar */
+.capabilities-bar-wrap {
+  margin-top: 2.5rem;
+  padding: 1.5rem 2rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.capabilities-bar-header {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.capabilities-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.capability-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+}
+
+.capability-badge:hover {
+  border-color: var(--accent-cyan);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(6, 182, 212, 0.15);
+}
+
+.capability-badge i {
+  color: var(--accent-cyan);
+}
+
 /* --------------------------------------------------------------------------
-   10. Featured Projects Section
+   10. Dedicated Data Analytics Section (#analytics)
+   -------------------------------------------------------------------------- */
+.analytics-section {
+  background: radial-gradient(ellipse at 50% 10%, rgba(6, 182, 212, 0.05) 0%, transparent 60%);
+}
+
+/* Visual Data Pipeline Flow Component */
+.data-pipeline-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  margin-bottom: 3.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.pipeline-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.pipeline-header h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pipeline-flow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pipeline-node {
+  flex: 1;
+  min-width: 160px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.4rem;
+  transition: all var(--transition-base);
+}
+
+.pipeline-node:hover {
+  border-color: var(--accent-cyan);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(6, 182, 212, 0.2);
+}
+
+.node-step {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent-cyan);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.node-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.node-tools {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.pipeline-arrow {
+  color: var(--accent-indigo);
+  font-size: 1rem;
+  padding: 0 0.25rem;
+  opacity: 0.6;
+}
+
+/* Analytics Toolkit Grid */
+.analytics-toolkit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.toolkit-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: all var(--transition-base);
+}
+
+.toolkit-card:hover {
+  border-color: var(--accent-cyan);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.toolkit-icon-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toolkit-icon-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-pill);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: var(--accent-cyan);
+}
+
+.toolkit-card-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.toolkit-items-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toolkit-items-list li {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toolkit-items-list li::before {
+  content: "•";
+  color: var(--accent-cyan);
+  font-weight: bold;
+}
+
+/* 5-Step Analytical Workflow Grid */
+.workflow-section-wrap {
+  margin-top: 1rem;
+}
+
+.workflow-section-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.75rem;
+}
+
+.workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1.25rem;
+}
+
+.workflow-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: all var(--transition-fast);
+}
+
+.workflow-card:hover {
+  border-color: var(--accent-indigo);
+  transform: translateY(-2px);
+}
+
+.workflow-step-num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-indigo);
+}
+
+.workflow-step-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.workflow-step-desc {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   11. Featured Projects Section
    -------------------------------------------------------------------------- */
 .project-filters {
   display: flex;
@@ -947,7 +1289,6 @@ body.cursor-hover .cursor-dot {
   gap: 3.5rem;
 }
 
-/* Project Showcase Card (Alternating Editorial Layout) */
 .project-row {
   display: grid;
   grid-template-columns: 1.15fr 1fr;
@@ -979,7 +1320,6 @@ body.cursor-hover .cursor-dot {
   order: 1;
 }
 
-/* Wide showcase card */
 .project-row.wide-showcase {
   grid-template-columns: 1fr;
   gap: 2rem;
@@ -1118,7 +1458,7 @@ body.cursor-hover .cursor-dot {
 }
 
 /* --------------------------------------------------------------------------
-   11. Currently Building Section (Authentic Active Builds)
+   12. Currently Building Section
    -------------------------------------------------------------------------- */
 .building-grid {
   display: grid;
@@ -1197,7 +1537,7 @@ body.cursor-hover .cursor-dot {
 }
 
 /* --------------------------------------------------------------------------
-   12. Journey & Milestones Timeline
+   13. Journey & Milestones Timeline
    -------------------------------------------------------------------------- */
 .timeline-container {
   position: relative;
@@ -1254,12 +1594,21 @@ body.cursor-hover .cursor-dot {
   transform: translateX(4px);
 }
 
+.timeline-card.credential-highlight {
+  border-color: rgba(6, 182, 212, 0.3);
+  background: radial-gradient(ellipse at top right, rgba(6, 182, 212, 0.08) 0%, var(--bg-card) 70%);
+}
+
 .timeline-date {
   font-family: var(--font-mono);
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--accent-indigo);
   margin-bottom: 0.35rem;
+}
+
+.timeline-card.credential-highlight .timeline-date {
+  color: var(--accent-cyan);
 }
 
 .timeline-title {
@@ -1284,7 +1633,7 @@ body.cursor-hover .cursor-dot {
 }
 
 /* --------------------------------------------------------------------------
-   13. Contact Section
+   14. Contact Section
    -------------------------------------------------------------------------- */
 .contact-grid {
   display: grid;
@@ -1350,7 +1699,6 @@ body.cursor-hover .cursor-dot {
   color: var(--text-primary);
 }
 
-/* Contact Form Card */
 .contact-form-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
@@ -1455,7 +1803,6 @@ body.cursor-hover .cursor-dot {
   to { transform: rotate(360deg); }
 }
 
-/* Toast Notification */
 .toast-notice {
   position: fixed;
   bottom: 2rem;
@@ -1493,7 +1840,7 @@ body.cursor-hover .cursor-dot {
 }
 
 /* --------------------------------------------------------------------------
-   14. Clean Footer
+   15. Clean Footer
    -------------------------------------------------------------------------- */
 .site-footer {
   border-top: 1px solid var(--border-subtle);
@@ -1558,7 +1905,7 @@ body.cursor-hover .cursor-dot {
 }
 
 /* --------------------------------------------------------------------------
-   15. Scroll Reveal Animation Classes
+   16. Scroll Reveal Animation Classes
    -------------------------------------------------------------------------- */
 .reveal-init {
   opacity: 0;
@@ -1573,7 +1920,7 @@ body.cursor-hover .cursor-dot {
 }
 
 /* --------------------------------------------------------------------------
-   16. Responsive Media Queries
+   17. Responsive Media Queries
    -------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
   .hero-grid {
@@ -1592,6 +1939,10 @@ body.cursor-hover .cursor-dot {
 
   .hero-actions {
     justify-content: center;
+  }
+
+  .hero-ethos-line {
+    margin-inline: auto;
   }
 
   .hero-visual-card {
@@ -1624,6 +1975,14 @@ body.cursor-hover .cursor-dot {
   .contact-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
+  }
+
+  .pipeline-arrow {
+    display: none;
+  }
+
+  .pipeline-flow {
+    gap: 1rem;
   }
 }
 
@@ -1669,11 +2028,20 @@ body.cursor-hover .cursor-dot {
     bottom: 2%;
     right: -2%;
   }
+
+  .hero-ethos-line {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .ethos-divider {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
   .hero-headline {
-    font-size: 2.4rem;
+    font-size: 2.35rem;
   }
 
   .section-title {
@@ -1696,7 +2064,7 @@ body.cursor-hover .cursor-dot {
 }
 
 /* --------------------------------------------------------------------------
-   17. Accessibility: Reduced Motion
+   18. Accessibility: Reduced Motion
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
