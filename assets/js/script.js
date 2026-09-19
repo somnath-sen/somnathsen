@@ -1,7 +1,7 @@
 /**
  * ============================================================================
- * SOMNATH SEN — PORTFOLIO INTERACTION ENGINE (2026 EDITION)
- * Clean, lightweight, performance-first Vanilla JavaScript
+ * SOMNATH SEN — THE BIOGRAPHY BOOK
+ * 3D Physical Book Navigation Engine & State Machine
  * ============================================================================
  */
 
@@ -9,347 +9,355 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* --------------------------------------------------------------------------
-     01. THEME CONTROLLER (Dark / Light Mode)
-     -------------------------------------------------------------------------- */
-  const themeToggleBtn = document.getElementById('themeToggleBtn');
-  const htmlRoot = document.documentElement;
+  const bookStage = document.getElementById('bookStage');
+  const book = document.getElementById('book');
+  const sheets = Array.from(document.querySelectorAll('.sheet'));
+  const btnNext = document.getElementById('btnNext');
+  const btnPrev = document.getElementById('btnPrev');
+  const btnOpenCover = document.getElementById('btnOpenCover');
+  const btnCloseBook = document.getElementById('btnCloseBook');
+  const btnContents = document.getElementById('btnContents');
+  const btnCloseContents = document.getElementById('btnCloseContents');
+  const contentsOverlay = document.getElementById('contentsOverlay');
+  const contentsItems = document.querySelectorAll('.contents-item');
+  const spreadIndicator = document.getElementById('spreadIndicator');
+  const btnSoundToggle = document.getElementById('btnSoundToggle');
+  const soundIcon = document.getElementById('soundIcon');
+  const cornerCurls = document.querySelectorAll('.page-corner-curl');
 
-  // Detect stored theme or system preference
-  const getInitialTheme = () => {
-    const storedTheme = localStorage.getItem('theme');
-    if (storedTheme) {
-      return storedTheme;
-    }
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-  };
+  const totalSheets = sheets.length; // 9 sheets (0 to 8)
+  let currentSheetIndex = 0; // Number of sheets currently flipped to the left (0 = closed cover)
+  let isFlipping = false;
+  let soundEnabled = false;
 
-  const applyTheme = (theme) => {
-    htmlRoot.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  };
-
-  // Set initial theme
-  applyTheme(getInitialTheme());
-
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
-      const currentTheme = htmlRoot.getAttribute('data-theme') || 'dark';
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      applyTheme(newTheme);
-    });
-  }
-
-  // Listen to OS system theme changes if user hasn't explicitly set one
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (!localStorage.getItem('theme')) {
-      applyTheme(e.matches ? 'dark' : 'light');
-    }
-  });
-
+  // Chapter labels for folios and indicator
+  const chapterTitles = [
+    "Cover — Selected Work & Biography",
+    "Preface — 01 / 14",
+    "Chapter 01: About Me — 02–03 / 14",
+    "Chapter 02: Journey & Timeline — 04–05 / 14",
+    "Chapter 03: Build & Analyze — 06–07 / 14",
+    "Chapter 04: Data Analytics — 08–09 / 14",
+    "Chapter 05: Works & Case Study — 10–11 / 14",
+    "Chapter 06: Philosophy & Credentials — 12–13 / 14",
+    "Epilogue & Back Cover — 14 / 14"
+  ];
 
   /* --------------------------------------------------------------------------
-     02. SCROLL PROGRESS INDICATOR
+     01. Z-INDEX & SHEET STACKING MANAGER
      -------------------------------------------------------------------------- */
-  const scrollProgress = document.getElementById('scrollProgress');
-
-  const updateScrollProgress = () => {
-    if (!scrollProgress) return;
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    scrollProgress.style.width = `${scrollPercent}%`;
-  };
-
-  window.addEventListener('scroll', updateScrollProgress, { passive: true });
-
-
-  /* --------------------------------------------------------------------------
-     03. NAVBAR SCROLL EFFECT & MOBILE DRAWER
-     -------------------------------------------------------------------------- */
-  const mainNavbar = document.getElementById('mainNavbar');
-  const mobileToggleBtn = document.getElementById('mobileToggleBtn');
-  const menuIcon = document.getElementById('menuIcon');
-  const mobileNavDrawer = document.getElementById('mobileNavDrawer');
-  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-
-  const handleNavbarScroll = () => {
-    if (!mainNavbar) return;
-    if (window.scrollY > 40) {
-      mainNavbar.classList.add('scrolled');
-    } else {
-      mainNavbar.classList.remove('scrolled');
-    }
-  };
-
-  window.addEventListener('scroll', handleNavbarScroll, { passive: true });
-  handleNavbarScroll();
-
-  // Mobile Menu Toggle
-  if (mobileToggleBtn && mobileNavDrawer) {
-    mobileToggleBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = mobileNavDrawer.classList.toggle('open');
-      if (menuIcon) {
-        menuIcon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
-      }
-    });
-
-    // Close on navigation link click
-    mobileNavLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileNavDrawer.classList.remove('open');
-        if (menuIcon) menuIcon.className = 'fa-solid fa-bars';
-      });
-    });
-
-    // Close when clicking outside drawer
-    document.addEventListener('click', (e) => {
-      if (!mobileNavDrawer.contains(e.target) && !mobileToggleBtn.contains(e.target)) {
-        mobileNavDrawer.classList.remove('open');
-        if (menuIcon) menuIcon.className = 'fa-solid fa-bars';
-      }
-    });
-  }
-
-
-  /* --------------------------------------------------------------------------
-     04. ACTIVE NAVIGATION LINK HIGHLIGHTER
-     -------------------------------------------------------------------------- */
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link');
-
-  const highlightNavOnScroll = () => {
-    const scrollY = window.pageYOffset;
-
-    sections.forEach(current => {
-      const sectionHeight = current.offsetHeight;
-      const sectionTop = current.offsetTop - 120;
-      const sectionId = current.getAttribute('id');
-
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${sectionId}`) {
-            link.classList.add('active');
-          }
-        });
-      }
-    });
-  };
-
-  window.addEventListener('scroll', highlightNavOnScroll, { passive: true });
-
-
-  /* --------------------------------------------------------------------------
-     05. SCROLL REVEAL (IntersectionObserver)
-     -------------------------------------------------------------------------- */
-  const revealElements = document.querySelectorAll('.reveal-init');
-
-  if ('IntersectionObserver' in window) {
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      rootMargin: '0px 0px -60px 0px',
-      threshold: 0.1
-    });
-
-    revealElements.forEach(el => revealObserver.observe(el));
-  } else {
-    // Fallback if IntersectionObserver is unavailable
-    revealElements.forEach(el => el.classList.add('revealed'));
-  }
-
-
-  /* --------------------------------------------------------------------------
-     06. PROJECT CATEGORY FILTERING
-     -------------------------------------------------------------------------- */
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const projectRows = document.querySelectorAll('.project-row');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Toggle active filter button
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const filterValue = btn.getAttribute('data-filter');
-
-      projectRows.forEach(row => {
-        const categories = (row.getAttribute('data-category') || '').split(' ');
-        
-        if (filterValue === 'all' || categories.includes(filterValue)) {
-          row.style.opacity = '0';
-          row.style.display = 'grid';
-          setTimeout(() => {
-            row.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-            row.style.opacity = '1';
-          }, 20);
-        } else {
-          row.style.opacity = '0';
-          setTimeout(() => {
-            row.style.display = 'none';
-          }, 300);
-        }
-      });
-    });
-  });
-
-
-  /* --------------------------------------------------------------------------
-     07. MINIMAL CUSTOM CURSOR (Desktop Only)
-     -------------------------------------------------------------------------- */
-  const cursorDot = document.getElementById('cursorDot');
-  const cursorRing = document.getElementById('cursorRing');
-  const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
-
-  if (!isTouchDevice && cursorDot && cursorRing) {
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let ringX = mouseX;
-    let ringY = mouseY;
-    let isMoving = false;
-
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-
-      cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-      if (!isMoving) {
-        cursorDot.style.opacity = '1';
-        cursorRing.style.opacity = '1';
-        isMoving = true;
-      }
-    });
-
-    // Smooth cursor follower animation loop
-    const animateCursor = () => {
-      ringX += (mouseX - ringX) * 0.18;
-      ringY += (mouseY - ringY) * 0.18;
-
-      cursorRing.style.transform = `translate(${ringX}px, ${ringY}px)`;
-      requestAnimationFrame(animateCursor);
-    };
-    requestAnimationFrame(animateCursor);
-
-    // Expand cursor ring on interactive elements
-    const interactiveSelectors = 'a, button, input, textarea, .project-row, .skill-card, .building-card, .timeline-card, .toolkit-card, .pipeline-node, .workflow-card, .capability-badge';
-    const interactiveElements = document.querySelectorAll(interactiveSelectors);
-
-    const addHover = () => document.body.classList.add('cursor-hover');
-    const removeHover = () => document.body.classList.remove('cursor-hover');
-
-    interactiveElements.forEach(el => {
-      el.addEventListener('mouseenter', addHover);
-      el.addEventListener('mouseleave', removeHover);
-    });
-
-    // Handle dynamically added or modified elements
-    document.addEventListener('mouseover', (e) => {
-      if (e.target.closest(interactiveSelectors)) {
-        document.body.classList.add('cursor-hover');
+  const updateSheetStacking = () => {
+    sheets.forEach((sheet, idx) => {
+      if (idx < currentSheetIndex) {
+        // Sheet is on the LEFT side (flipped)
+        // Stacking order on left: sheets flipped later sit on top of earlier ones
+        sheet.classList.add('flipped');
+        sheet.style.zIndex = idx + 1;
       } else {
-        document.body.classList.remove('cursor-hover');
+        // Sheet is on the RIGHT side (unflipped)
+        // Stacking order on right: earlier sheets sit on top of later ones
+        sheet.classList.remove('flipped');
+        sheet.style.zIndex = totalSheets - idx;
       }
     });
 
-    window.addEventListener('mouseout', () => {
-      cursorDot.style.opacity = '0';
-      cursorRing.style.opacity = '0';
-      isMoving = false;
+    // Update book stage closed/open class
+    if (currentSheetIndex === 0) {
+      bookStage.classList.add('book-closed');
+      btnPrev.setAttribute('disabled', '');
+      btnCloseBook.setAttribute('disabled', '');
+    } else {
+      bookStage.classList.remove('book-closed');
+      btnPrev.removeAttribute('disabled');
+      btnCloseBook.removeAttribute('disabled');
+    }
+
+    if (currentSheetIndex >= totalSheets) {
+      btnNext.setAttribute('disabled', '');
+    } else {
+      btnNext.removeAttribute('disabled');
+    }
+
+    // Update spread indicator
+    if (spreadIndicator) {
+      spreadIndicator.textContent = chapterTitles[Math.min(currentSheetIndex, chapterTitles.length - 1)] || `Spread ${currentSheetIndex}`;
+    }
+  };
+
+  /* --------------------------------------------------------------------------
+     02. PHYSICAL PAGE FLIP AUDIO (Web Audio API)
+     -------------------------------------------------------------------------- */
+  let audioCtx = null;
+
+  const playPaperRustle = () => {
+    if (!soundEnabled) return;
+    try {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      // Generate a soft realistic paper flutter using bandpass-filtered noise
+      const bufferSize = audioCtx.sampleRate * 0.18; // 180ms
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.4));
+      }
+
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 1400;
+      filter.Q.value = 1.2;
+
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.18);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      noise.start();
+    } catch (e) {
+      // Audio context unavailable or blocked; fail silently
+    }
+  };
+
+  if (btnSoundToggle) {
+    btnSoundToggle.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      if (soundIcon) {
+        soundIcon.className = soundEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
+        soundIcon.style.color = soundEnabled ? 'var(--cover-gold)' : '';
+      }
+      if (soundEnabled) playPaperRustle();
     });
   }
 
+  /* --------------------------------------------------------------------------
+     03. FLIP PAGE LOGIC (FORWARD & BACKWARD)
+     -------------------------------------------------------------------------- */
+  const flipNext = () => {
+    if (isFlipping || currentSheetIndex >= totalSheets) return;
+    isFlipping = true;
+
+    const sheetToFlip = sheets[currentSheetIndex];
+    sheetToFlip.style.zIndex = 100; // Elevation during rotation
+    sheetToFlip.classList.add('flipping');
+    playPaperRustle();
+
+    // Trigger 3D rotation
+    sheetToFlip.classList.add('flipped');
+    currentSheetIndex++;
+
+    setTimeout(() => {
+      sheetToFlip.classList.remove('flipping');
+      updateSheetStacking();
+      isFlipping = false;
+    }, 950);
+  };
+
+  const flipPrev = () => {
+    if (isFlipping || currentSheetIndex <= 0) return;
+    isFlipping = true;
+
+    currentSheetIndex--;
+    const sheetToUnflip = sheets[currentSheetIndex];
+    sheetToUnflip.style.zIndex = 100; // Elevation during rotation
+    sheetToUnflip.classList.add('flipping');
+    playPaperRustle();
+
+    // Trigger 3D reverse rotation
+    sheetToUnflip.classList.remove('flipped');
+
+    setTimeout(() => {
+      sheetToUnflip.classList.remove('flipping');
+      updateSheetStacking();
+      isFlipping = false;
+    }, 950);
+  };
+
+  const goToSheet = (targetIndex) => {
+    targetIndex = Math.max(0, Math.min(targetIndex, totalSheets));
+    if (targetIndex === currentSheetIndex) return;
+
+    if (contentsOverlay) contentsOverlay.classList.remove('active');
+
+    // Immediate re-indexing for multi-page jump
+    currentSheetIndex = targetIndex;
+    playPaperRustle();
+    updateSheetStacking();
+  };
+
+  // Button Listeners
+  if (btnNext) btnNext.addEventListener('click', flipNext);
+  if (btnPrev) btnPrev.addEventListener('click', flipPrev);
+  if (btnOpenCover) btnOpenCover.addEventListener('click', flipNext);
+  if (btnCloseBook) btnCloseBook.addEventListener('click', () => goToSheet(0));
+
+  // Corner Dog-Ear Click
+  cornerCurls.forEach(curl => {
+    curl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      flipNext();
+    });
+  });
+
+  // Direct Page Click (Click right side of book to go next, left side to go prev)
+  book.addEventListener('click', (e) => {
+    // Don't trigger page turn if user clicked an interactive link, button, input, or textarea
+    if (e.target.closest('a, button, input, textarea, .page-corner-curl')) {
+      return;
+    }
+
+    const rect = book.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const isRightSide = clickX > (rect.width / 2);
+
+    if (currentSheetIndex === 0) {
+      flipNext();
+    } else if (isRightSide) {
+      flipNext();
+    } else {
+      flipPrev();
+    }
+  });
 
   /* --------------------------------------------------------------------------
-     08. PRESERVED GOOGLE SHEETS CONTACT FORM INTEGRATION
+     04. KEYBOARD NAVIGATION
      -------------------------------------------------------------------------- */
-  const contactForm = document.getElementById('contactForm');
-  const submitBtn = document.getElementById('submitBtn');
-  const toastNotice = document.getElementById('toastNotice');
-  const toastMessage = document.getElementById('toastMessage');
-  const toastIcon = document.getElementById('toastIcon');
+  window.addEventListener('keydown', (e) => {
+    if (e.target.matches('input, textarea')) return;
 
-  // Exact Google Apps Script deployment URL from repository
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+      e.preventDefault();
+      flipNext();
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault();
+      flipPrev();
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      goToSheet(0);
+    } else if (e.key === 'Escape') {
+      if (contentsOverlay) contentsOverlay.classList.remove('active');
+    }
+  });
+
+  /* --------------------------------------------------------------------------
+     05. MOBILE TOUCH SWIPE NAVIGATION
+     -------------------------------------------------------------------------- */
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  book.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  book.addEventListener('touchend', (e) => {
+    const touchEndX = e.changedTouches[0].screenX;
+    const touchEndY = e.changedTouches[0].screenY;
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+
+    // Detect horizontal swipe
+    if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX < 0) {
+        flipNext(); // Swiped left -> next page
+      } else {
+        flipPrev(); // Swiped right -> previous page
+      }
+    }
+  }, { passive: true });
+
+  /* --------------------------------------------------------------------------
+     06. TABLE OF CONTENTS MODAL
+     -------------------------------------------------------------------------- */
+  if (btnContents && contentsOverlay) {
+    btnContents.addEventListener('click', () => {
+      contentsOverlay.classList.add('active');
+    });
+
+    if (btnCloseContents) {
+      btnCloseContents.addEventListener('click', () => {
+        contentsOverlay.classList.remove('active');
+      });
+    }
+
+    contentsOverlay.addEventListener('click', (e) => {
+      if (e.target === contentsOverlay) {
+        contentsOverlay.classList.remove('active');
+      }
+    });
+
+    contentsItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const gotoIdx = parseInt(item.getAttribute('data-goto'), 10);
+        goToSheet(gotoIdx);
+      });
+    });
+  }
+
+  /* --------------------------------------------------------------------------
+     07. PRESERVED GOOGLE SHEETS CONTACT FORM
+     -------------------------------------------------------------------------- */
+  const contactForm = document.getElementById('bookContactForm');
+  const submitBtn = document.getElementById('bookSubmitBtn');
+  const bookToast = document.getElementById('bookToast');
+  const bookToastText = document.getElementById('bookToastText');
+
   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwqlceRfUBkQ2nGONkOmUSEz0HfzoxQTpN_Occi6jpt7HnQUHIa53CpXGKHIoyv0lihMA/exec';
 
   const showToast = (message, isSuccess = true) => {
-    if (!toastNotice) return;
-    
-    toastMessage.textContent = message;
-    if (isSuccess) {
-      toastIcon.className = 'fa-regular fa-circle-check toast-icon';
-      toastIcon.style.color = 'var(--accent-emerald)';
-    } else {
-      toastIcon.className = 'fa-regular fa-circle-xmark toast-icon';
-      toastIcon.style.color = '#EF4444';
-    }
-
-    toastNotice.classList.add('visible');
+    if (!bookToast) return;
+    bookToastText.textContent = message;
+    bookToast.classList.add('active');
     setTimeout(() => {
-      toastNotice.classList.remove('visible');
+      bookToast.classList.remove('active');
     }, 5000);
   };
 
   if (contactForm && submitBtn) {
-    const inputs = contactForm.querySelectorAll('input, textarea');
-
-    // Real-time input validation to enable submit button
-    const validateForm = () => {
-      const isValid = contactForm.checkValidity();
-      if (isValid) {
-        submitBtn.removeAttribute('disabled');
-      } else {
-        submitBtn.setAttribute('disabled', '');
-      }
-    };
-
-    inputs.forEach(input => {
-      input.addEventListener('input', validateForm);
-    });
-
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
       if (!contactForm.checkValidity()) {
-        showToast('Please fill in all required fields correctly.', false);
+        showToast('Please fill in your name, email, and message.', false);
         return;
       }
 
-      const btnText = submitBtn.querySelector('.btn-text');
-      const originalText = btnText ? btnText.textContent : 'Send Message';
-
-      // Set Sending State
-      submitBtn.classList.add('sending');
-      if (btnText) btnText.textContent = 'Sending Message...';
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<span>Transmitting...</span> <i class="fa-solid fa-spinner fa-spin"></i>';
       submitBtn.setAttribute('disabled', '');
 
-      // Execute POST request to Google Apps Script
       fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         body: new URLSearchParams(new FormData(contactForm))
       })
       .then(() => {
-        showToast('Thank you! Your message has been sent successfully.', true);
+        showToast('Thank you! Your message has been sent to Somnath.', true);
         contactForm.reset();
-        submitBtn.classList.remove('sending');
-        if (btnText) btnText.textContent = originalText;
-        submitBtn.setAttribute('disabled', '');
+        submitBtn.innerHTML = originalText;
+        submitBtn.removeAttribute('disabled');
       })
       .catch((error) => {
-        console.error('Contact Form Submission Error:', error);
-        showToast('Unable to send message right now. Please email directly.', false);
-        submitBtn.classList.remove('sending');
-        if (btnText) btnText.textContent = originalText;
+        console.error('Submission error:', error);
+        showToast('Transmission error. Please email sen126265@gmail.com directly.', false);
+        submitBtn.innerHTML = originalText;
         submitBtn.removeAttribute('disabled');
       });
     });
   }
+
+  // Initial layout initialization
+  updateSheetStacking();
 
 });
