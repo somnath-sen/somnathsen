@@ -1664,96 +1664,265 @@ html, body {
 }
 
 @media (max-width: 768px) {
-  /* Switch from 2-Page spread to Single-Page portrait reading mode */
+  /* Complete single-page mobile reading mode */
   :root {
     --book-width: 92vw;
-    --book-height: 78vh;
+    --book-height: calc(100dvh - 5.2rem);
     --sheet-width: 100%;
   }
 
+  body {
+    overflow: hidden;
+  }
+
+  .studio-desk {
+    padding: 0.75rem 0.5rem 5rem 0.5rem;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .book-stage {
+    width: var(--book-width);
+    height: var(--book-height);
+    max-height: 720px;
+    margin: 0 auto;
+    perspective: none;
+    transform: none !important;
+  }
+
   .book-stage.book-closed .book {
-    transform: none;
+    transform: none !important;
+  }
+
+  .book-cast-shadow {
+    display: none !important;
   }
 
   .book-base-left,
+  .book-base-right,
   .book-spine-hinge,
-  .book-stack-edge-left {
-    display: none;
+  .book-stack-edge-left,
+  .book-stack-edge-right {
+    display: none !important;
   }
 
-  .book-base-right {
+  .book {
     width: 100%;
-    border-radius: var(--page-radius);
+    height: 100%;
+    transform: none !important;
+    position: relative;
   }
 
   .sheet {
-    left: 0;
-    width: 100%;
-  }
-
-  .sheet.flipped {
-    display: none; /* Hide flipped sheets behind on mobile single-page reading */
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: contents !important;
   }
 
   .page-face {
-    border-radius: var(--page-radius);
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    transform: none !important;
+    display: none !important;
+    opacity: 0;
+    visibility: hidden;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px !important;
+    border: 1px solid var(--paper-border) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(212, 175, 55, 0.3) transparent;
   }
 
+  .page-face::-webkit-scrollbar {
+    width: 3px;
+  }
+  .page-face::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.3);
+    border-radius: 3px;
+  }
+
+  .page-face.mobile-active {
+    display: flex !important;
+    flex-direction: column !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 20 !important;
+    animation: mobilePageFadeIn 0.25s ease-out forwards;
+  }
+
+  @keyframes mobilePageFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Ample bottom padding so every paragraph, link, input, and button is fully visible above the bottom dock */
   .page-content {
-    padding: 2.2rem 1.5rem 2rem 1.5rem;
+    padding: 1.75rem 1.25rem 5.5rem 1.25rem !important;
+    min-height: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    gap: 1.15rem;
   }
 
   .cover-front {
-    padding: 2.5rem 1.75rem;
+    padding: 2.75rem 1.5rem 5.5rem 1.5rem !important;
+    border-radius: 8px !important;
+    justify-content: space-between !important;
   }
 
   .cover-title {
-    font-size: 2.4rem;
+    font-size: 2.1rem !important;
+  }
+
+  .cover-subtitle {
+    font-size: 0.95rem !important;
   }
 
   .chapter-title {
-    font-size: 1.75rem;
+    font-size: 1.6rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .lead-quote {
+    font-size: 1rem !important;
+  }
+
+  .drop-cap {
+    font-size: 2.6rem !important;
+    margin-right: 0.45rem !important;
+  }
+
+  .portrait-plate {
+    max-height: 52vh !important;
+    margin: 0 auto;
   }
 
   .case-study-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
   }
 
+  .book-pipeline-step {
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  .book-tool-card {
+    padding: 0.75rem !important;
+  }
+
+  .page-corner-curl {
+    bottom: 0.4rem !important;
+    right: 0.4rem !important;
+  }
+
+  /* Fixed Bottom Mobile Navigation Bar */
   .book-controls.vertical-dock {
-    top: auto;
-    bottom: 0.85rem;
-    right: 50%;
-    transform: translateX(50%);
-    flex-direction: row;
-    gap: 0.5rem;
-    padding: 0.45rem 0.8rem;
-    border-radius: 9999px;
-    width: auto;
-    max-width: 95vw;
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0.75rem !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.35rem !important;
+    padding: 0.45rem 0.7rem !important;
+    border-radius: 9999px !important;
+    background: rgba(12, 15, 22, 0.94) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(212, 175, 55, 0.35) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(212, 175, 55, 0.12) !important;
+    width: auto !important;
+    max-width: 95vw !important;
+    z-index: 1000 !important;
   }
 
   .control-btn {
-    flex-direction: row;
-    min-width: auto;
-    padding: 0.35rem 0.55rem;
-    gap: 0.3rem;
+    flex-direction: row !important;
+    min-width: auto !important;
+    padding: 0.35rem 0.5rem !important;
+    gap: 0.25rem !important;
+    border-radius: 8px !important;
+  }
+
+  .control-btn .btn-label {
+    font-size: 0.65rem !important;
+  }
+
+  .control-btn i {
+    font-size: 0.8rem !important;
   }
 
   .spread-indicator-wrap {
-    max-width: none;
-    flex-direction: row;
-    gap: 0.35rem;
-    padding: 0;
+    max-width: none !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+    padding: 0 0.15rem !important;
+  }
+
+  .spread-badge {
+    font-size: 0.6rem !important;
+    padding: 0.12rem 0.4rem !important;
+    margin-bottom: 0 !important;
   }
 
   .spread-indicator {
-    display: none;
+    display: none !important;
+  }
+
+  .spread-folio {
+    font-size: 0.65rem !important;
+    color: #CBD5E1 !important;
+    margin-top: 0 !important;
+    white-space: nowrap !important;
   }
 
   .controls-divider {
-    width: 1px;
-    height: 16px;
-    margin: 0 0.1rem;
+    width: 1px !important;
+    height: 16px !important;
+    margin: 0 0.05rem !important;
+  }
+
+  /* Table of Contents Modal on Mobile */
+  .contents-card {
+    padding: 2rem 1.25rem !important;
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+    width: 92% !important;
+  }
+
+  .contents-card-title {
+    font-size: 1.5rem !important;
+    margin-bottom: 1.2rem !important;
+  }
+
+  .contents-item {
+    padding: 0.4rem 0.2rem !important;
+  }
+  
+  .contents-item-num {
+    width: 65px !important;
+    font-size: 0.72rem !important;
+  }
+  
+  .contents-item-name {
+    font-size: 0.88rem !important;
   }
 }
 

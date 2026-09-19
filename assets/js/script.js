@@ -26,13 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnSoundToggle = document.getElementById('btnSoundToggle');
   const soundIcon = document.getElementById('soundIcon');
   const cornerCurls = document.querySelectorAll('.page-corner-curl');
+  const allPageFaces = Array.from(document.querySelectorAll('.page-face'));
 
   const totalSheets = sheets.length; // 9 sheets (0 to 8)
   let currentSheetIndex = 0; // Number of sheets currently flipped to the left (0 = closed cover)
+  let currentMobilePageIndex = 0; // Active single page on mobile (0 to allPageFaces.length - 1)
   let isFlipping = false;
   let soundEnabled = false;
 
-  // Chapter labels for folios and indicator
+  const isMobileMode = () => window.innerWidth <= 768;
+
+  // Chapter labels for folios and indicator (Desktop spreads)
   const chapterMetadata = [
     { badge: "COVER", title: "Selected Works", folio: "Front" },
     { badge: "PREFACE", title: "Hello, I'm Somnath", folio: "01 / 14" },
@@ -43,6 +47,28 @@ document.addEventListener('DOMContentLoaded', () => {
     { badge: "CH. 05", title: "EdFlow Case Study", folio: "11–12" },
     { badge: "CH. 06", title: "Workbench & NPTEL", folio: "12–13" },
     { badge: "EPILOGUE", title: "Contact & Notes", folio: "14 / 14" }
+  ];
+
+  // Dedicated single-page metadata for mobile reading mode
+  const mobilePageMetadata = [
+    { badge: "COVER", title: "Somnath Sen", folio: "Front" },
+    { badge: "EX LIBRIS", title: "Archive Plate", folio: "Flyleaf" },
+    { badge: "PREFACE", title: "Hello, I'm Somnath", folio: "01 / 14" },
+    { badge: "PORTRAIT", title: "Somnath Sen", folio: "02 / 14" },
+    { badge: "ABOUT", title: "A Developer & Analyst", folio: "03 / 14" },
+    { badge: "JOURNEY", title: "Chronological Timeline", folio: "04 / 14" },
+    { badge: "SKILLS", title: "Software Development", folio: "05 / 14" },
+    { badge: "ANALYTICS", title: "Data & BI Toolsets", folio: "06 / 14" },
+    { badge: "PIPELINE", title: "From Data to Insight", folio: "07 / 14" },
+    { badge: "TOOLKIT", title: "Analytical Workflow", folio: "08 / 14" },
+    { badge: "PROJECTS", title: "Things I've Built", folio: "09 / 14" },
+    { badge: "CASE STUDY", title: "EdFlow Deep Dive", folio: "10 / 14" },
+    { badge: "WORKBENCH", title: "What I'm Building Now", folio: "11 / 14" },
+    { badge: "PHILOSOPHY", title: "How I Work & NPTEL", folio: "12 / 14" },
+    { badge: "CONTACT", title: "Let's Create Next Page", folio: "13 / 14" },
+    { badge: "EPILOGUE", title: "Thanks for Reading", folio: "14 / 14" },
+    { badge: "COLOPHON", title: "Book Specifications", folio: "Colophon" },
+    { badge: "BACK", title: "Hardcover Back", folio: "Back" }
   ];
 
   /* --------------------------------------------------------------------------
@@ -136,46 +162,71 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* --------------------------------------------------------------------------
-     01. Z-INDEX & SHEET STACKING MANAGER
+     01. Z-INDEX & SHEET STACKING MANAGER (Desktop Spreads & Mobile Single Page)
      -------------------------------------------------------------------------- */
   const updateSheetStacking = () => {
-    sheets.forEach((sheet, idx) => {
-      if (idx < currentSheetIndex) {
-        // Sheet is on the LEFT side (flipped)
-        // Stacking order on left: sheets flipped later sit on top of earlier ones
-        sheet.classList.add('flipped');
-        sheet.style.zIndex = idx + 1;
+    if (isMobileMode()) {
+      // Mobile Single-Page Display: show exactly one page face at a time
+      allPageFaces.forEach((face, idx) => {
+        if (idx === currentMobilePageIndex) {
+          face.classList.add('mobile-active');
+          face.scrollTop = 0;
+        } else {
+          face.classList.remove('mobile-active');
+        }
+      });
+
+      // Update button states on mobile
+      btnPrev.disabled = currentMobilePageIndex === 0;
+      btnCloseBook.disabled = currentMobilePageIndex === 0;
+      btnNext.disabled = currentMobilePageIndex >= allPageFaces.length - 1;
+
+      // Update mobile folios and badge
+      const meta = mobilePageMetadata[currentMobilePageIndex] || { badge: 'PAGE', title: '', folio: `${currentMobilePageIndex + 1}` };
+      if (spreadBadge) spreadBadge.textContent = meta.badge;
+      if (spreadIndicator) spreadIndicator.textContent = meta.title;
+      if (spreadFolio) spreadFolio.textContent = meta.folio;
+
+    } else {
+      // Desktop 2-Page 3D Sheets Display
+      allPageFaces.forEach(face => face.classList.remove('mobile-active'));
+
+      sheets.forEach((sheet, idx) => {
+        if (idx < currentSheetIndex) {
+          // Sheet is on the LEFT side (flipped)
+          sheet.classList.add('flipped');
+          sheet.style.zIndex = idx + 1;
+        } else {
+          // Sheet is on the RIGHT side (unflipped)
+          sheet.classList.remove('flipped');
+          sheet.style.zIndex = totalSheets - idx;
+        }
+      });
+
+      // Update book stage closed/open class
+      if (currentSheetIndex === 0) {
+        bookStage.classList.add('book-closed');
+        btnPrev.setAttribute('disabled', '');
+        btnCloseBook.setAttribute('disabled', '');
       } else {
-        // Sheet is on the RIGHT side (unflipped)
-        // Stacking order on right: earlier sheets sit on top of later ones
-        sheet.classList.remove('flipped');
-        sheet.style.zIndex = totalSheets - idx;
+        bookStage.classList.remove('book-closed');
+        btnPrev.removeAttribute('disabled');
+        btnCloseBook.removeAttribute('disabled');
       }
-    });
 
-    // Update book stage closed/open class
-    if (currentSheetIndex === 0) {
-      bookStage.classList.add('book-closed');
-      btnPrev.setAttribute('disabled', '');
-      btnCloseBook.setAttribute('disabled', '');
-    } else {
-      bookStage.classList.remove('book-closed');
-      btnPrev.removeAttribute('disabled');
-      btnCloseBook.removeAttribute('disabled');
-    }
+      if (currentSheetIndex >= totalSheets) {
+        btnNext.setAttribute('disabled', '');
+      } else {
+        btnNext.removeAttribute('disabled');
+      }
 
-    if (currentSheetIndex >= totalSheets) {
-      btnNext.setAttribute('disabled', '');
-    } else {
-      btnNext.removeAttribute('disabled');
-    }
-
-    // Update spread indicator
-    const currentMeta = chapterMetadata[Math.min(currentSheetIndex, chapterMetadata.length - 1)];
-    if (currentMeta) {
-      if (spreadBadge) spreadBadge.textContent = currentMeta.badge;
-      if (spreadIndicator) spreadIndicator.textContent = currentMeta.title;
-      if (spreadFolio) spreadFolio.textContent = currentMeta.folio;
+      // Update spread indicator
+      const currentMeta = chapterMetadata[Math.min(currentSheetIndex, chapterMetadata.length - 1)];
+      if (currentMeta) {
+        if (spreadBadge) spreadBadge.textContent = currentMeta.badge;
+        if (spreadIndicator) spreadIndicator.textContent = currentMeta.title;
+        if (spreadFolio) spreadFolio.textContent = currentMeta.folio;
+      }
     }
   };
 
@@ -240,61 +291,112 @@ document.addEventListener('DOMContentLoaded', () => {
      03. FLIP PAGE LOGIC (FORWARD & BACKWARD)
      -------------------------------------------------------------------------- */
   const flipNext = () => {
-    if (isFlipping || currentSheetIndex >= totalSheets) return;
-    isFlipping = true;
+    if (isFlipping) return;
 
-    const sheetToFlip = sheets[currentSheetIndex];
-    sheetToFlip.style.zIndex = 100; // Elevation during rotation
-    sheetToFlip.classList.add('flipping');
-    playPaperRustle();
+    if (isMobileMode()) {
+      if (currentMobilePageIndex < allPageFaces.length - 1) {
+        currentMobilePageIndex++;
+        currentSheetIndex = Math.floor(currentMobilePageIndex / 2);
+        playPaperRustle();
+        updateSheetStacking();
+      }
+    } else {
+      if (currentSheetIndex >= totalSheets) return;
+      isFlipping = true;
 
-    // Trigger 3D rotation
-    sheetToFlip.classList.add('flipped');
-    currentSheetIndex++;
+      const sheetToFlip = sheets[currentSheetIndex];
+      sheetToFlip.style.zIndex = 100; // Elevation during rotation
+      sheetToFlip.classList.add('flipping');
+      playPaperRustle();
 
-    setTimeout(() => {
-      sheetToFlip.classList.remove('flipping');
-      updateSheetStacking();
-      isFlipping = false;
-    }, 950);
+      // Trigger 3D rotation
+      sheetToFlip.classList.add('flipped');
+      currentSheetIndex++;
+      currentMobilePageIndex = Math.min(currentSheetIndex * 2, allPageFaces.length - 1);
+
+      setTimeout(() => {
+        sheetToFlip.classList.remove('flipping');
+        updateSheetStacking();
+        isFlipping = false;
+      }, 950);
+    }
   };
 
   const flipPrev = () => {
-    if (isFlipping || currentSheetIndex <= 0) return;
-    isFlipping = true;
+    if (isFlipping) return;
 
-    currentSheetIndex--;
-    const sheetToUnflip = sheets[currentSheetIndex];
-    sheetToUnflip.style.zIndex = 100; // Elevation during rotation
-    sheetToUnflip.classList.add('flipping');
-    playPaperRustle();
+    if (isMobileMode()) {
+      if (currentMobilePageIndex > 0) {
+        currentMobilePageIndex--;
+        currentSheetIndex = Math.floor(currentMobilePageIndex / 2);
+        playPaperRustle();
+        updateSheetStacking();
+      }
+    } else {
+      if (currentSheetIndex <= 0) return;
+      isFlipping = true;
 
-    // Trigger 3D reverse rotation
-    sheetToUnflip.classList.remove('flipped');
+      currentSheetIndex--;
+      currentMobilePageIndex = currentSheetIndex * 2;
+      const sheetToUnflip = sheets[currentSheetIndex];
+      sheetToUnflip.style.zIndex = 100; // Elevation during rotation
+      sheetToUnflip.classList.add('flipping');
+      playPaperRustle();
 
-    setTimeout(() => {
-      sheetToUnflip.classList.remove('flipping');
-      updateSheetStacking();
-      isFlipping = false;
-    }, 950);
+      // Trigger 3D reverse rotation
+      sheetToUnflip.classList.remove('flipped');
+
+      setTimeout(() => {
+        sheetToUnflip.classList.remove('flipping');
+        updateSheetStacking();
+        isFlipping = false;
+      }, 950);
+    }
   };
 
   const goToSheet = (targetIndex) => {
-    targetIndex = Math.max(0, Math.min(targetIndex, totalSheets));
-    if (targetIndex === currentSheetIndex) return;
-
     if (contentsOverlay) contentsOverlay.classList.remove('active');
 
-    // Immediate re-indexing for multi-page jump
-    currentSheetIndex = targetIndex;
-    playPaperRustle();
-    updateSheetStacking();
+    if (isMobileMode()) {
+      // Map sheet index to mobile single page index
+      const mobileIndexMap = [0, 2, 4, 6, 8, 10, 12, 14, 15];
+      currentMobilePageIndex = mobileIndexMap[targetIndex] ?? (targetIndex * 2);
+      currentSheetIndex = targetIndex;
+      playPaperRustle();
+      updateSheetStacking();
+    } else {
+      targetIndex = Math.max(0, Math.min(targetIndex, totalSheets));
+      if (targetIndex === currentSheetIndex) return;
+
+      // Immediate re-indexing for multi-page jump
+      currentSheetIndex = targetIndex;
+      currentMobilePageIndex = currentSheetIndex * 2;
+      playPaperRustle();
+      updateSheetStacking();
+    }
   };
+
+  // Window resize handler for smooth responsive transition
+  window.addEventListener('resize', () => {
+    updateSheetStacking();
+  });
 
   // Button Listeners
   if (btnNext) btnNext.addEventListener('click', flipNext);
   if (btnPrev) btnPrev.addEventListener('click', flipPrev);
-  if (btnOpenCover) btnOpenCover.addEventListener('click', flipNext);
+  if (btnOpenCover) {
+    btnOpenCover.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (isMobileMode()) {
+        currentMobilePageIndex = 2; // Jump to Preface on mobile
+        currentSheetIndex = 1;
+        playPaperRustle();
+        updateSheetStacking();
+      } else {
+        flipNext();
+      }
+    });
+  }
   if (btnCloseBook) btnCloseBook.addEventListener('click', () => goToSheet(0));
 
   // Corner Dog-Ear Click
